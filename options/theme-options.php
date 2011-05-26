@@ -4,7 +4,7 @@ global $the_theme_options;
 global $the_theme_admin_options_hook;
 
 // Initialize Theme options
-add_action('after_setup_theme','remix_options_init', 9 );
+add_action( 'after_setup_theme', 'remix_options_init', 9 );
 
 /**
  * Theme Options Init
@@ -54,7 +54,7 @@ function remix_get_default_options() {
 /**
  * Add options page to the Appearance Menu
  *
- * @since Evoke 0.1.0
+ * @since Remix 0.1.0
  */
 function remix_menu_options() {
     $prefix = hybrid_get_prefix();
@@ -66,7 +66,7 @@ function remix_menu_options() {
 /**
  * Display the options page
  *
- * @since Evoke 0.1.0
+ * @since Remix 0.1.0
  */
 function remix_admin_options_page() {
     $prefix = hybrid_get_prefix();
@@ -105,7 +105,7 @@ function remix_admin_options_page() {
 /**
  * Register Options
  *
- * @since Evoke 0.1.0
+ * @since Remix 0.1.0
  */
 function remix_register_options(){
 	  require( trailingslashit( HYBRID_ADDONS ) . 'options/register.php' );
@@ -119,7 +119,7 @@ function remix_register_options(){
 /**
  * Register and enqueue styles
  *
- * @since Evoke 0.1.0
+ * @since Remix 0.1.0
  */
 function remix_enqueue_admin_style() {
     $prefix = hybrid_get_prefix();
@@ -131,7 +131,7 @@ function remix_enqueue_admin_style() {
 /**
  * Register and enqueue scripts
  *
- * @since Evoke 0.1.0
+ * @since Remix 0.1.0
  */
 function remix_enqueue_admin_script() {
     $prefix = hybrid_get_prefix();
@@ -148,7 +148,7 @@ function remix_enqueue_admin_script() {
 /**
  * Displays the label for each settings option
  *
- * @since Evoke 0.1.0
+ * @since Remix 0.1.0
  */
 function remix_options_label_for($var, $txt, $class = '') {
     $prefix = hybrid_get_prefix();
@@ -163,7 +163,7 @@ function remix_options_label_for($var, $txt, $class = '') {
 /**
  * Registers each setting section and field using standard functions
  *
- * @since Evoke 0.1.0
+ * @since Remix 0.1.0
  * @uses add_settings_section()
  * @uses add_settings_field()
  */
@@ -186,7 +186,7 @@ function remix_build_options_section($section_args, $field_args) {
 /**
  * Displays each individual option setting fields using prebuilt functions
  *
- * @since Evoke 0.1.0
+ * @since Remix 0.1.0
  */
 function remix_build_options_field($args) {
     if ( $args['field_type'] == 'colorpicker' ) {
@@ -208,7 +208,7 @@ function remix_build_options_field($args) {
 /**
  * Replaces do_settings_sections, because we don't want to use tables
  *
- * @since Evoke 0.1.0
+ * @since Remix 0.1.0
  */
 function remix_do_settings_sections($page, $section_id) {
   	global $wp_settings_sections, $wp_settings_fields;
@@ -228,7 +228,7 @@ function remix_do_settings_sections($page, $section_id) {
 /**
  * Replaces do_settings_fields, because we don't want to use tables
  *
- * @since Evoke 0.1.0
+ * @since Remix 0.1.0
  */
 function remix_do_settings_fields($page, $section) {
   	global $wp_settings_fields;

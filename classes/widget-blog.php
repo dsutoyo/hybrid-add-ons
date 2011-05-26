@@ -10,7 +10,6 @@
  * Blog widget class.
  *
  * @since 0.1.0
- * @link http://codex.wordpress.org/Template_Tags/wp_get_archives
  * @link http://themehybrid.com/themes/hybrid/widgets
  */
 class Remix_Widget_Blog extends WP_Widget {

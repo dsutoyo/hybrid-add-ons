@@ -1,4 +1,4 @@
-<div class="evoke_metabox">
+<div class="<?php hybrid_get_prefix(); ?>_metabox">
  
  	<p class="howto">To deactivate a slide, set its status to "Pending Review" or "Draft"</p>
  

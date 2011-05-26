@@ -1,4 +1,4 @@
-<div class="evoke_metabox">
+<div class="<?php hybrid_get_prefix(); ?>_metabox">
  
 	<p>
 		<?php $mb->the_field('featured_video'); ?>

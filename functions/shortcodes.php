@@ -9,6 +9,7 @@ add_action( 'init', 'remix_add_shortcodes' );
  *
  * @since 0.1.0
  * @uses add_shortcode() to create new shortcodes.
+ * @uses add_filter() to allow shortcodes in widgets.
  * @link http://codex.wordpress.org/Shortcode_API
  */
 function remix_add_shortcodes() {
@@ -20,7 +21,7 @@ function remix_add_shortcodes() {
     add_shortcode( 'rss','remix_subscribe_rss' );
     
     // Allow [SHORTCODES] in Widgets
-    add_filter('widget_text', 'do_shortcode');
+    add_filter( 'widget_text', 'do_shortcode' );
 }
 
 /**
@@ -49,7 +50,7 @@ function remix_subscribe_rss(){
  * @since 0.1.0
  * @uses the_widget() Displays a widget
  */
-function remix_widget($atts) {
+function remix_widget( $atts ) {
     
     global $wp_widget_factory;
 
@@ -58,14 +59,16 @@ function remix_widget($atts) {
         'instance' => '',
         'id' => ''
     ), $atts));
+    // Put '&' characters back in
     $instance = str_ireplace("&#038;", '&' ,$instance);
 
     $widget_name = esc_html($widget_name);
     
-    if (!is_a($wp_widget_factory->widgets[$widget_name], 'WP_Widget')):
+    // Make sure our widget is registered
+    if ( !is_a($wp_widget_factory->widgets[$widget_name], 'WP_Widget') ):
         $wp_class = 'WP_Widget_'.ucwords(strtolower($class));
         
-        if (!is_a($wp_widget_factory->widgets[$wp_class], 'WP_Widget')):
+        if ( !is_a($wp_widget_factory->widgets[$wp_class], 'WP_Widget') ):
             return '<p>'.sprintf(__("%s: Widget class not found. Make sure this widget exists and the class name is correct"),'<strong>'.$class.'</strong>').'</p>';
         else:
             $class = $wp_class;
@@ -78,13 +81,17 @@ function remix_widget($atts) {
     $id = $wp_widget_factory->widgets[$widget_name]->id;
     $before_widget = sprintf('<div id="%1$s" class="widget %2$s widget-%2$s">', $id, $classname);
 
-    the_widget($widget_name, $instance, array(
+    // put the arguments into an array, prepping for filter
+    $widget_layout_args = array(
     		'before_widget' => $before_widget . '<div class="widget-wrap widget-inside">',
     		'after_widget' => '</div></div>',
     		'before_title' => '<h3 class="widget-title">',
     		'after_title' => '</h3>'
-    ));
+    );
+
+    the_widget($widget_name, $instance, $widget_layout_args);
     $output = ob_get_contents();
+    
     ob_end_clean();
     
     return $output;
@@ -106,6 +113,7 @@ function remix_get_sidebar() {
     $output = '';
     
     if ( $sidebars_widgets ) {
+        // display widgets active within our widget area
         foreach ( $sidebars_widgets['primary'] as $widget ) {        
             // find the active widgets for the sidebar
             $wp_registered_widgets[$widget];
