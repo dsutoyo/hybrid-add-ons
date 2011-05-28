@@ -37,17 +37,9 @@ function remix_options_init() {
  */
 function remix_get_default_options() {
     $options = array(
-        'slideshow_fx' => 'fade',
-        'analytics' => '',
-        'custom_favicon' => '',
-        'font' => 'serif',
-        'link_color' => '',
-        'hover_color' => '',
-        'nav_link_color' => '',
-        'footer_insert' => '',
-    
-        'theme_version' => '0.1.0',
+        'footer_insert' => '[the-year]',
     );
+    $options = apply_filters( 'default_options', $options );
     return $options;
 }
 
