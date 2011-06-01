@@ -8,7 +8,7 @@ register_setting( $prefix . '_theme_options', $prefix . '_theme_options', 'remix
  * @since Evoke 1.0
  */
 global $pagenow;
-if ( 'themes.php' == $pagenow && isset( $_GET['page'] ) && $prefix . '_settings' == $_GET['page'] ) :
+if ( ('themes.php' == $pagenow || 'admin.php' == $pagenow) && isset( $_GET['page'] ) && $prefix . '_settings' == $_GET['page'] ) :
     //require( get_template_directory() . '/library/extra/options/register-general.php' );
     //require( get_template_directory() . '/library/extra/options/register-slideshow.php' );
     require( trailingslashit( HYBRID_ADDONS ) . 'options/register-styles.php' );

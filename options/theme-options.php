@@ -1,7 +1,6 @@
 <?php
 
 global $the_theme_options;
-global $the_theme_admin_options_hook;
 
 // Initialize Theme options
 add_action( 'after_setup_theme', 'remix_options_init', 9 );
@@ -12,22 +11,19 @@ add_action( 'after_setup_theme', 'remix_options_init', 9 );
  * @since Remix 0.1.0
  */
 function remix_options_init() {
+    global $the_theme_options;
   
     $prefix = hybrid_get_prefix();
     
     // set options equal to defaults
-    global $the_theme_options;
     $the_theme_options = get_option( $prefix . '_theme_options' );
     if ( false === $the_theme_options ) {
         $the_theme_options = remix_get_default_options();
     }
     update_option( $prefix . '_theme_options', $the_theme_options );
-
-    add_action('admin_menu', 'remix_menu_options');
-    add_action('admin_init', 'remix_register_options');
-   	add_action('admin_print_styles-appearance_page_' . $prefix . '_settings', 'remix_enqueue_admin_style', 11 );
-   	add_action('admin_print_scripts-appearance_page_' . $prefix . '_settings', 'remix_enqueue_admin_script', 11 );
     
+    add_action( 'admin_init', 'remix_register_options' ); 
+    add_action( 'admin_menu', 'remix_menu_options' );
 }
 
 /**
@@ -51,7 +47,15 @@ function remix_get_default_options() {
 function remix_menu_options() {
     $prefix = hybrid_get_prefix();
     $data = get_theme_data( trailingslashit( STYLESHEETPATH ) . 'style.css' );
-	  add_theme_page($data['Name'] . ' Options', $data['Name'] . ' Options', 'edit_theme_options', $prefix . '_settings', 'remix_admin_options_page');
+    
+	  //add_theme_page($data['Name'] . ' Options', $data['Name'] . ' Options', 'edit_theme_options', $prefix . '_settings', 'remix_admin_options_page' );
+	  
+	  $options_page = add_menu_page( 'Page Title', $data['Name'], 'manage_options', $prefix . '_settings', 'remix_admin_options_page', '', 50 );
+	  
+	  add_submenu_page( $prefix . '_settings', 'Theme Options', 'Theme Options', 'manage_options', $prefix . '_settings', 'remix_admin_options_page' );
+	  
+	  add_action( 'admin_print_styles-' . $options_page, 'remix_enqueue_admin_style', 11 );
+   	add_action( 'admin_print_scripts-' . $options_page, 'remix_enqueue_admin_script', 11 );
 }
 
 
@@ -67,7 +71,8 @@ function remix_admin_options_page() {
     
     if ( isset( $_GET['settings-updated'] ) ) {
   			echo "<div class='updated'><p>Theme settings updated successfully.</p></div>";
-	  } ?>
+	  }
+	  ?>
     <div id="<?php echo $prefix; ?>_options" class="wrap">
         <div id="header">
             <h1><?php echo $data['Name']; ?></h1>
@@ -198,13 +203,14 @@ function remix_build_options_field($args) {
 }
 
 /**
- * Replaces do_settings_sections, because we don't want to use tables
+ * Replaces do_settings_sections, found in wp-admin/includes/template.php
+ * because we don't want to use tables
  *
  * @since Remix 0.1.0
  */
 function remix_do_settings_sections($page, $section_id) {
   	global $wp_settings_sections, $wp_settings_fields;
-
+  	
   	if ( !isset($wp_settings_sections) || !isset($wp_settings_sections[$page]) )
   		return;
   	$section = $wp_settings_sections[$page][$section_id];
@@ -218,7 +224,8 @@ function remix_do_settings_sections($page, $section_id) {
 }
 
 /**
- * Replaces do_settings_fields, because we don't want to use tables
+* Replaces do_settings_fields, found in wp-admin/includes/template.php
+* because we don't want to use tables
  *
  * @since Remix 0.1.0
  */
