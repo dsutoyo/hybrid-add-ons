@@ -43,6 +43,8 @@ function remix_init() {
     
     require_if_theme_supports( 'cycle-slideshows', trailingslashit( HYBRID_ADDONS ) . 'extensions/cycle-slideshows.php' );
     
+    require_if_theme_supports( 'custom-stylesheets', trailingslashit( HYBRID_ADDONS ) . 'extensions/custom-stylesheets.php' );
+    
     /* Load the shortcodes if supported. */
 		require_if_theme_supports( 'hybrid-core-shortcodes', trailingslashit( HYBRID_ADDONS ) . 'functions/shortcodes.php' );
 		

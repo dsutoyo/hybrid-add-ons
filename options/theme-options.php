@@ -1,6 +1,7 @@
 <?php
 
 global $the_theme_options;
+global $media_upload_ids;
 
 // Initialize Theme options
 add_action( 'after_setup_theme', 'remix_options_init', 9 );
@@ -56,6 +57,7 @@ function remix_menu_options() {
 	  
 	  add_action( 'admin_print_styles-' . $options_page, 'remix_enqueue_admin_style', 11 );
    	add_action( 'admin_print_scripts-' . $options_page, 'remix_enqueue_admin_script', 11 );
+   	add_action( 'admin_footer', 'remix_admin_media_script' );
 }
 
 
@@ -65,6 +67,7 @@ function remix_menu_options() {
  * @since Remix 0.1.0
  */
 function remix_admin_options_page() {
+    global $wp_settings_sections;
     $prefix = hybrid_get_prefix();
     $data = get_theme_data( trailingslashit( STYLESHEETPATH ) . 'style.css' );
     $theme_name = $data['Name'];
@@ -75,22 +78,32 @@ function remix_admin_options_page() {
 	  ?>
     <div id="<?php echo $prefix; ?>_options" class="wrap">
         <div id="header">
+          
             <h1><?php echo $data['Name']; ?></h1>
+
         </div>
         <form id="options_tabs" method="post" action="options.php" enctype="multipart/form-data">
+          
             <ul class="clearfix">
-                <li><a href="#<?php echo $prefix; ?>_options_general">General</a></li>
-                <li><a href="#<?php echo $prefix; ?>_options_styles">Fonts and Colors</a></li>
+                <?php foreach ($wp_settings_sections[$prefix . '_settings'] as $key => $value) { ?>
+                  
+                <li><a href="#<?php echo $value['id']; ?>"><?php echo $value['title']; ?></a></li>
+                
+                <?php } ?>
             </ul>
 
-        		<?php settings_fields($prefix.'_theme_options'); ?>
-      			<div id="<?php echo $prefix; ?>_options_general">
-      			<?php //remix_do_settings_sections($data['Name'], $prefix.'_options_general'); ?>
-      			<?php //remix_do_settings_sections($data['Name'], $prefix.'_options_section_slideshow'); ?>
-      			</div>
-      			<div id="<?php echo $prefix; ?>_options_styles">
-      			<?php remix_do_settings_sections($data['Name'], $prefix.'_options_styles'); ?>
-      			</div>
+        		<?php settings_fields($prefix . '_theme_options'); // nonce ?>
+        		
+        		<?php foreach ($wp_settings_sections[$prefix . '_settings'] as $key => $value) { ?>
+            
+            <div id="<?php echo $value['id']; ?>">
+            
+            <?php remix_do_settings_sections($prefix . '_settings', $value['id']); ?>
+            
+            </div>
+            
+            <?php } ?>
+        		
         		<div class="footer">
         			<input name="<?php echo $prefix.'_theme_options[submit]' ?>" type="submit" value="<?php esc_attr_e('Save Settings', hybrid_get_textdomain()); ?>" />
         			<input name="<?php echo $prefix.'_theme_options[reset]' ?>" type="submit" value="<?php esc_attr_e('Reset Defaults', hybrid_get_textdomain()); ?>" />
@@ -105,12 +118,13 @@ function remix_admin_options_page() {
  * @since Remix 0.1.0
  */
 function remix_register_options(){
-	  require( trailingslashit( HYBRID_ADDONS ) . 'options/register.php' );
+	  require( trailingslashit( STYLESHEETPATH ) . 'options/register-options.php' );
 	  require( trailingslashit( HYBRID_ADDONS ) . 'options/field-checkbox.php' );
     require( trailingslashit( HYBRID_ADDONS ) . 'options/field-textarea.php' );
     require( trailingslashit( HYBRID_ADDONS ) . 'options/field-text.php' );
     require( trailingslashit( HYBRID_ADDONS ) . 'options/field-select.php' );
     require( trailingslashit( HYBRID_ADDONS ) . 'options/field-colorpicker.php' );
+    require( trailingslashit( HYBRID_ADDONS ) . 'options/field-media.php' );    
 }
 
 /**
@@ -142,6 +156,10 @@ function remix_enqueue_admin_script() {
     wp_enqueue_script( 'admin_custom', trailingslashit( HYBRID_ALT_ADMIN_JS ) . 'custom.js' );
 }
 
+function remix_admin_media_script() {
+    include('script-media.php');
+}
+
 /**
  * Displays the label for each settings option
  *
@@ -167,16 +185,15 @@ function remix_options_label_for($var, $txt, $class = '') {
 function remix_build_options_section($section_args, $field_args) {
     $prefix = hybrid_get_prefix();
     $data = get_theme_data( trailingslashit( STYLESHEETPATH ) . 'style.css' );
-    $theme_name = $data['Name'];
     
-    add_settings_section($prefix.'_'.$section_args['section_id'], $section_args['section_title'], $prefix.'_options_styles_section_text', $theme_name);
+    add_settings_section($prefix . '_' . $section_args['section_id'], $section_args['section_title'], $prefix . '_' . $section_args['section_id'] . '_section_text', $prefix . '_settings');
     foreach ($field_args as $key => $args) {
         // auto generate these array items
         $args['label_for'] = $prefix.'_theme_options['.$key.']';
         $args['field_name'] = $key;
-        $args['div_for'] = 'options_'.$args['field_type'];
+        $args['div_for'] = 'options_'.$args['type'];
         
-        add_settings_field($prefix.'_options_'.$key, $args['field_title'], 'remix_build_options_field', $theme_name, $prefix.'_'.$section_args['section_id'], $args);
+        add_settings_field($prefix.'_options_'.$key, $args['title'], 'remix_build_options_field', $prefix . '_settings', $prefix.'_'.$section_args['section_id'], $args);
     }
 }
 
@@ -185,21 +202,28 @@ function remix_build_options_section($section_args, $field_args) {
  *
  * @since Remix 0.1.0
  */
-function remix_build_options_field($args) {
-    if ( $args['field_type'] == 'colorpicker' ) {
+function remix_build_options_field( $args ) {
+    global $media_upload_ids;
+    
+    if ( $args['type'] == 'colorpicker' ) {
         echo '<div class="element">';
         remix_options_colorpicker( $args['field_name'] );
         echo '</div>';
-    } elseif ( $args['field_type'] == 'select' ) {
+    } elseif ( $args['type'] == 'select' ) {
       	echo '<div class="element">';
-      	remix_options_select( $args['field_name'], $args['field_array']);
+      	remix_options_select( $args['field_name'], $args['data']);
       	echo '</div>';
-    } elseif ( $args['field_type'] == 'textarea' ) {
+    } elseif ( $args['type'] == 'textarea' ) {
         echo '<div class="element">';
         remix_options_textarea( $args['field_name'] );
         echo '</div>';
+    } elseif ( $args['type'] == 'media' ) {
+        $media_upload_ids[] = $args['field_name'];
+        remix_options_media( $args['field_name'] );
     }
-    echo '<span class="description">'.$args['field_description'].'</span>';
+    if ( $args['description'] ) {
+        echo '<span class="description">' . $args['description'] . '</span>';
+    }
 }
 
 /**

@@ -59,6 +59,7 @@ function remix_widget( $atts ) {
         'instance' => '',
         'id' => ''
     ), $atts));
+    
     // Put '&' characters back in
     $instance = str_ireplace("&#038;", '&' ,$instance);
 
@@ -105,8 +106,12 @@ function remix_widget( $atts ) {
  * @uses wp_get_sidebars_widgets() Retrieve full list of sidebars and their widgets.
  * @uses remix_get_widget_settings() Returns settings of a widget instance
  */
-function remix_get_sidebar() {
+function remix_get_sidebar( $atts ) {
     global $wp_registered_widgets;
+    
+    extract(shortcode_atts(array(
+        'id' => 'primary'
+    ), $atts));
     
     $sidebars_widgets = wp_get_sidebars_widgets();
     
@@ -114,7 +119,7 @@ function remix_get_sidebar() {
     
     if ( $sidebars_widgets ) {
         // display widgets active within our widget area
-        foreach ( $sidebars_widgets['primary'] as $widget ) {        
+        foreach ( $sidebars_widgets[$id] as $widget ) {        
             // find the active widgets for the sidebar
             $wp_registered_widgets[$widget];
             

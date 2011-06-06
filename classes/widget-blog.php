@@ -83,7 +83,7 @@ class Remix_Widget_Blog extends WP_Widget {
     		  if ($r->have_posts()) :
     		      while ($r->have_posts()) : $r->the_post(); ?>
           		<li>
-          		    <h4 class="entry-title"><a href="<?php the_permalink() ?>" title="<?php echo esc_attr(get_the_title() ? get_the_title() : get_the_ID()); ?>"><?php if ( get_the_title() ) the_title(); else the_ID(); ?></a></h4>
+          		    <h5 class="entry-title"><a href="<?php the_permalink() ?>" title="<?php echo esc_attr(get_the_title() ? get_the_title() : get_the_ID()); ?>"><?php if ( get_the_title() ) the_title(); else the_ID(); ?></a></h5>
           		    <?php if ( $instance['show_content'] == 'excerpt' ) {
           		        the_excerpt();
           		    } elseif ( $instance['show_content'] == 'content' ) {
