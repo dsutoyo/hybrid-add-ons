@@ -57,7 +57,6 @@ function remix_menu_options() {
 	  
 	  add_action( 'admin_print_styles-' . $options_page, 'remix_enqueue_admin_style', 11 );
    	add_action( 'admin_print_scripts-' . $options_page, 'remix_enqueue_admin_script', 11 );
-   	add_action( 'admin_footer', 'remix_admin_media_script' );
 }
 
 
@@ -154,10 +153,6 @@ function remix_enqueue_admin_script() {
     wp_enqueue_script( $prefix . '_jquery_colorpicker', trailingslashit( HYBRID_ALT_ADMIN_JS ) . 'jquery.color.picker.js' );
     wp_enqueue_script( 'formalize', trailingslashit( HYBRID_ALT_ADMIN_JS ) . 'jquery.formalize.js' );
     wp_enqueue_script( 'admin_custom', trailingslashit( HYBRID_ALT_ADMIN_JS ) . 'custom.js' );
-}
-
-function remix_admin_media_script() {
-    include('script-media.php');
 }
 
 /**
