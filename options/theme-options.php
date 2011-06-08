@@ -69,46 +69,50 @@ function remix_admin_options_page() {
     global $wp_settings_sections;
     $prefix = hybrid_get_prefix();
     $data = get_theme_data( trailingslashit( STYLESHEETPATH ) . 'style.css' );
-    $theme_name = $data['Name'];
+    $theme_name = $data['Name']; ?>
     
-    if ( isset( $_GET['settings-updated'] ) ) {
-  			echo "<div class='updated'><p>Theme settings updated successfully.</p></div>";
-	  }
-	  ?>
-    <div id="<?php echo $prefix; ?>_options" class="wrap">
-        <div id="header">
+    <div class="wrap">
+        <div id='icon-themes' class="icon32"><br></div>
+        <h2>Theme Settings</h2>
+    
+        <?php if ( isset( $_GET['settings-updated'] ) ) {
+      			echo "<div class='updated'><p>Theme settings updated successfully.</p></div>";
+    	  }
+    	  ?>
+        <div id="<?php echo $prefix; ?>_options">
+            <div id="header">
           
-            <h1><?php echo $data['Name']; ?></h1>
+                <h1><?php echo $data['Name']; ?></h1>
 
-        </div>
-        <form id="options_tabs" method="post" action="options.php" enctype="multipart/form-data">
-          
-            <ul class="clearfix">
-                <?php foreach ($wp_settings_sections[$prefix . '_settings'] as $key => $value) { ?>
-                  
-                <li><a href="#<?php echo $value['id']; ?>"><?php echo $value['title']; ?></a></li>
-                
-                <?php } ?>
-            </ul>
-
-        		<?php settings_fields($prefix . '_theme_options'); // nonce ?>
-        		
-        		<?php foreach ($wp_settings_sections[$prefix . '_settings'] as $key => $value) { ?>
-            
-            <div id="<?php echo $value['id']; ?>">
-            
-            <?php remix_do_settings_sections($prefix . '_settings', $value['id']); ?>
-            
             </div>
-            
-            <?php } ?>
+            <form id="options_tabs" method="post" action="options.php" enctype="multipart/form-data">
+                <ul class="clearfix">
+                    <?php foreach ($wp_settings_sections[$prefix . '_settings'] as $key => $value) { ?>
+                  
+                    <li><a href="#<?php echo $value['id']; ?>"><?php echo $value['title']; ?></a></li>
+                
+                    <?php } ?>
+                </ul>
+
+            		<?php settings_fields($prefix . '_theme_options'); // nonce ?>
         		
-        		<div class="footer">
-        			<input name="<?php echo $prefix.'_theme_options[submit]' ?>" type="submit" value="<?php esc_attr_e('Save Settings', hybrid_get_textdomain()); ?>" />
-        			<input name="<?php echo $prefix.'_theme_options[reset]' ?>" type="submit" value="<?php esc_attr_e('Reset Defaults', hybrid_get_textdomain()); ?>" />
-        		</div>
-        </form>
-		</div>
+            		<?php foreach ($wp_settings_sections[$prefix . '_settings'] as $key => $value) { ?>
+            
+                <div id="<?php echo $value['id']; ?>">
+            
+                <?php remix_do_settings_sections($prefix . '_settings', $value['id']); ?>
+            
+                </div>
+            
+                <?php } ?>
+        		
+            		<div class="footer">
+            			<input name="<?php echo $prefix.'_theme_options[submit]' ?>" type="submit" value="<?php esc_attr_e('Save Settings', hybrid_get_textdomain()); ?>" />
+            			<input name="<?php echo $prefix.'_theme_options[reset]' ?>" type="submit" value="<?php esc_attr_e('Reset Defaults', hybrid_get_textdomain()); ?>" />
+            		</div>
+            </form>
+    		</div>
+    </div>
 <?php }
 
 /**
@@ -117,7 +121,7 @@ function remix_admin_options_page() {
  * @since Remix 0.1.0
  */
 function remix_register_options(){
-	  require( trailingslashit( STYLESHEETPATH ) . 'options/register-options.php' );
+	  require( trailingslashit( STYLESHEETPATH ) . 'options/setup.php' );
 	  require( trailingslashit( HYBRID_ADDONS ) . 'options/field-checkbox.php' );
     require( trailingslashit( HYBRID_ADDONS ) . 'options/field-textarea.php' );
     require( trailingslashit( HYBRID_ADDONS ) . 'options/field-text.php' );
@@ -145,14 +149,14 @@ function remix_enqueue_admin_style() {
  */
 function remix_enqueue_admin_script() {
     $prefix = hybrid_get_prefix();
-    wp_deregister_script( 'colorpicker' );
+    wp_deregister_script( 'colorpicker' ); // we'll use our own colorpicker
     
     wp_enqueue_script( 'media-upload' );
     wp_enqueue_script( 'thickbox' );
    	wp_enqueue_script( $prefix . '_jquery_ui', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.10/jquery-ui.min.js' );
     wp_enqueue_script( $prefix . '_jquery_colorpicker', trailingslashit( HYBRID_ALT_ADMIN_JS ) . 'jquery.color.picker.js' );
     wp_enqueue_script( 'formalize', trailingslashit( HYBRID_ALT_ADMIN_JS ) . 'jquery.formalize.js' );
-    wp_enqueue_script( 'admin_custom', trailingslashit( HYBRID_ALT_ADMIN_JS ) . 'custom.js' );
+    wp_enqueue_script( 'admin_functions', trailingslashit( HYBRID_ALT_ADMIN_JS ) . 'functions.js' );
 }
 
 /**

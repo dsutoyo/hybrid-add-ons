@@ -1,4 +1,5 @@
 jQuery(document).ready(function () {
+  
   jQuery("#options_tabs").tabs();
   
   jQuery('.remix-media-upload').click(function() {

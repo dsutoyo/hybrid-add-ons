@@ -4,7 +4,7 @@ function remix_options_colorpicker($var) {
     $prefix = hybrid_get_prefix();
     $the_theme_options = get_option($prefix.'_theme_options'); ?>
     <script type="text/javascript">
-    jQuery(document).ready(function($) {  
+    jQuery(document).ready(function($) {
       $('#<?php echo $prefix."_theme_options\\\\[".$var."\\\\]" ?>').ColorPicker({
         onSubmit: function(hsb, hex, rgb) {
         	$('#<?php echo $prefix."_theme_options\\\\[".$var."\\\\]" ?>').val('#'+hex);
@@ -23,8 +23,8 @@ function remix_options_colorpicker($var) {
       });
     });
     </script>
-    <?php remix_options_text_field($var); ?>
-    <div id="cp_<?php echo $prefix."_theme_options[".$var."]" ?>" class="cp_box">
+    <?php remix_options_text_field( $var ); ?>
+    <div id="cp_<?php echo $prefix . "_theme_options[" . $var . "]" ?>" class="cp_box">
       <div style="background:<?php echo $the_theme_options[$var] ?>;border-color:<?php echo $the_theme_options[$var] ?>"> 
       </div>
     </div>
