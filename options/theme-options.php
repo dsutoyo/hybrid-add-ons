@@ -107,8 +107,8 @@ function remix_admin_options_page() {
                 <?php } ?>
         		
             		<div class="footer">
-            			<input name="<?php echo $prefix.'_theme_options[submit]' ?>" type="submit" value="<?php esc_attr_e('Save Settings', hybrid_get_textdomain()); ?>" />
-            			<input name="<?php echo $prefix.'_theme_options[reset]' ?>" type="submit" value="<?php esc_attr_e('Reset Defaults', hybrid_get_textdomain()); ?>" />
+            			<input id="button-save" name="<?php echo $prefix.'_theme_options[submit]' ?>" type="submit" value="<?php esc_attr_e('Save Settings', hybrid_get_textdomain()); ?>" />
+            			<input id="button-reset" name="<?php echo $prefix.'_theme_options[reset]' ?>" type="submit" value="<?php esc_attr_e('Reset Defaults', hybrid_get_textdomain()); ?>" />
             		</div>
             </form>
     		</div>
@@ -238,8 +238,12 @@ function remix_do_settings_sections($page, $section_id) {
   		return;
   	$section = $wp_settings_sections[$page][$section_id];
     echo '<div class="section clearfix">';
-  	echo "<h3>{$section['title']}</h3>\n";
+    
+    $section_title = '<h3>' . $section['title'] . '</h3>' . "\n";    
+  	echo apply_filters( 'options_section_title', $section_title );
+  	
   	call_user_func($section['callback'], $section);
+  	
   	if ( !isset($wp_settings_fields) || !isset($wp_settings_fields[$page]) || !isset($wp_settings_fields[$page][$section['id']]) )
   		continue;
   	remix_do_settings_fields($page, $section_id);
@@ -259,10 +263,12 @@ function remix_do_settings_fields($page, $section) {
   		return;
 
   	foreach ( (array) $wp_settings_fields[$page][$section] as $field ) {
+  	  $div_id = 'options_' . $field['args']['field_name'];
+  	  
   	  if ( !empty($field['args']['div_for']) ) {
-  	    echo '<div class="options clearfix ' . $field['args']['div_for'] . '">';
+  	    echo '<div id="' . $div_id . '" class="options clearfix ' . $field['args']['div_for'] . '">';
   	  } else {
-  	    echo '<div class="options clearfix">';
+  	    echo '<div id="' . $div_id . '" class="options clearfix">';
   	  }
   		if ( !empty($field['args']['label_for']) )
   			echo '<label for="' . $field['args']['label_for'] . '">' . $field['title'] . '</label>';

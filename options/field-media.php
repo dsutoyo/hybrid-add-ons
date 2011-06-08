@@ -13,7 +13,7 @@ function remix_options_media($var) {
     }
     echo '<div class="element">';
     echo '<input id="' . $prefix . '_theme_options[' . $var . ']" class="option_field" type="text" name="' . $prefix . '_theme_options[' . $var . ']" value="' . $the_theme_options[$var] . '" />';
-    echo '<a id="upload_' . $var . '" class="remix-media-upload" href="#">Upload Image</a>';
+    echo '<a id="upload_' . $var . '" class="remix-media-upload" href="#">Upload</a>';
     echo '</div>';
 }
 

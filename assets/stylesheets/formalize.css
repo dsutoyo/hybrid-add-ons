@@ -29,14 +29,15 @@ textarea {
   vertical-align: middle;
 }
 
+.remix-media-upload,
 button,
 input[type="reset"],
 input[type="submit"],
 input[type="button"] {
   -webkit-appearance: none;
-  -moz-border-radius: 2px;
-  -webkit-border-radius: 2px;
-  border-radius: 2px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
   background-image: url(../images/button.png);
   background-repeat: repeat-x;
   border: 1px solid;
