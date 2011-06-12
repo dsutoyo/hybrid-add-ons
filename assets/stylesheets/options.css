@@ -11,14 +11,6 @@
   margin: 0 0 7px 0;
   border-bottom: 1px solid #eee;
 }
-#evoke_options h4,
-#evoke_options label {
-  display: block;
-  clear: both;
-  margin-bottom: 7px;
-  font-size: 14px;
-  font-weight: bold;
-}
 #evoke_options label.option_checkbox_label {
   display: inline;
   clear: none;
@@ -181,6 +173,14 @@
   margin-bottom: 20px;
   border-bottom: 1px solid #eeeeee;
 }
+.options h4,
+.options label {
+  display: block;
+  clear: both;
+  margin-bottom: 7px;
+  font-size: 14px;
+  font-weight: bold;
+}
 
 /* Forms */
 .remix-media-upload {
@@ -204,6 +204,19 @@
 .option_field,
 .option_select {
   width: 240px;
+}
+
+.options_checkbox input {
+  float: left;
+}
+.options_checkbox label {
+  clear: none;
+  float: left;
+  margin-left: 5px;
+  margin-bottom: 0;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 12px;
 }
 
 #wpcontent select {

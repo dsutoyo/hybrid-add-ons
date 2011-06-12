@@ -72,7 +72,7 @@ function remix_admin_options_page() {
     $theme_name = $data['Name']; ?>
     
     <div class="wrap">
-        <div id='icon-themes' class="icon32"><br></div>
+        <div id='icon-options-general' class="icon32"><br></div>
         <h2>Theme Settings</h2>
     
         <?php if ( isset( $_GET['settings-updated'] ) ) {
@@ -188,7 +188,9 @@ function remix_build_options_section($section_args, $field_args) {
     add_settings_section($prefix . '_' . $section_args['section_id'], $section_args['section_title'], $prefix . '_' . $section_args['section_id'] . '_section_text', $prefix . '_settings');
     foreach ($field_args as $key => $args) {
         // auto generate these array items
-        $args['label_for'] = $prefix.'_theme_options['.$key.']';
+        if ( $args['type'] != 'checkbox' ) {
+            $args['label_for'] = $prefix.'_theme_options['.$key.']';
+        }
         $args['field_name'] = $key;
         $args['div_for'] = 'options_'.$args['type'];
         
@@ -219,6 +221,10 @@ function remix_build_options_field( $args ) {
     } elseif ( $args['type'] == 'media' ) {
         $media_upload_ids[] = $args['field_name'];
         remix_options_media( $args['field_name'] );
+    } elseif ( $args['type'] == 'checkbox' ) {
+        echo '<div class="element">';
+      	remix_options_checkbox( $args['field_name'], $args['label'] );
+      	echo '</div>';
     }
     if ( $args['description'] ) {
         echo '<span class="description">' . $args['description'] . '</span>';
