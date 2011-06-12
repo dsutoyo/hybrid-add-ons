@@ -219,6 +219,19 @@
   line-height: 12px;
 }
 
+.remove_image input.option_checkbox {
+  float: left;
+}
+.remove_image label {
+  clear: none;
+  float: left;
+  margin-left: 5px;
+  margin-bottom: 0;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 12px;
+}
+
 #wpcontent select {
   font-size: inherit;
 }
