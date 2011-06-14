@@ -113,10 +113,11 @@ function remix_get_sidebar( $atts ) {
         'id' => 'primary'
     ), $atts));
     
+    // Get the widgets associated with each sidebar
     $sidebars_widgets = wp_get_sidebars_widgets();
     
     $output = '';
-    
+    //print_r($wp_registered_widgets);
     if ( $sidebars_widgets ) {
         // display widgets active within our widget area
         foreach ( $sidebars_widgets[$id] as $widget ) {        
@@ -124,13 +125,15 @@ function remix_get_sidebar( $atts ) {
             $wp_registered_widgets[$widget];
             
             $the_widget = $wp_registered_widgets[$widget]['callback'][0];
+            //print_r($the_widget);
             $widget_name = get_class($the_widget);
-            $id = $wp_registered_widgets[$widget]['params'];
+            $id = $wp_registered_widgets[$widget]['params'][0]['number'];
             $instance_array = remix_get_widget_settings($the_widget);
     
             $instance = array();
-
-            foreach ( $instance_array[3] as $key => $value ) {
+            //print_r($instance_array);
+            //print_r($wp_registered_widgets);
+            foreach ( $instance_array[$id] as $key => $value ) {
                 $instance[] = $key . '=' . $value;
             }
             $instance_str = implode('&', $instance);
@@ -149,7 +152,7 @@ function remix_get_sidebar( $atts ) {
  */
 function remix_get_widget_settings($widget) {
   	$settings = get_option($widget->option_name);
-
+    //print_r($settings);
   	if ( false === $settings && isset($widget->alt_option_name) )
   		$settings = get_option($widget->alt_option_name);
 
