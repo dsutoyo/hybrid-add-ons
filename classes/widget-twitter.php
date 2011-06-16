@@ -59,7 +59,7 @@ class Remix_Widget_Twitter extends WP_Widget {
     			echo $before_title . apply_filters( 'widget_title',  $instance['title'], $instance, $this->id_base ) . $after_title;
 
     		if ( $username )	
-      		echo "<div id=\"twitter_div\" class=\"widget\">
+      		echo "<div id=\"twitter_div\">
           <ul id=\"twitter_update_list\"></ul>
           <p class=\"continue\"><a href=\"http://www.twitter.com/". $username . "/\">follow me on Twitter &rarr;</a></p>
           </div>";

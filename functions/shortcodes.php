@@ -96,7 +96,52 @@ function remix_widget( $atts ) {
     ob_end_clean();
     
     return $output;
+}
 
+
+/**
+ * Function equivalent of the widget shortcode.
+ *
+ * @since 0.1.0
+ * @uses the_widget() Displays a widget
+ */
+function remix_get_widget( $widget_name, $instance, $id ) {
+    
+    global $wp_widget_factory;
+    
+    $widget_name = esc_html($widget_name);
+    
+    // Make sure our widget is registered
+    if ( !is_a($wp_widget_factory->widgets[$widget_name], 'WP_Widget') ):
+        $wp_class = 'WP_Widget_'.ucwords(strtolower($class));
+        
+        if ( !is_a($wp_widget_factory->widgets[$wp_class], 'WP_Widget') ):
+            return '<p>'.sprintf(__("%s: Widget class not found. Make sure this widget exists and the class name is correct"),'<strong>'.$class.'</strong>').'</p>';
+        else:
+            $class = $wp_class;
+        endif;
+    endif;
+    
+    ob_start();
+    
+    $classname = $wp_widget_factory->widgets[$widget_name]->widget_options['classname'];
+    $id = $wp_widget_factory->widgets[$widget_name]->id;
+    $before_widget = sprintf('<div id="%1$s" class="widget %2$s widget-%2$s">', $id, $classname);
+
+    // put the arguments into an array, prepping for filter
+    $widget_layout_args = array(
+    		'before_widget' => $before_widget . '<div class="widget-wrap widget-inside">',
+    		'after_widget' => '</div></div>',
+    		'before_title' => '<h3 class="widget-title">',
+    		'after_title' => '</h3>'
+    );
+
+    the_widget($widget_name, $instance, $widget_layout_args);
+    $output = ob_get_contents();
+    
+    ob_end_clean();
+    
+    return $output;
 }
 
 /**
@@ -117,7 +162,10 @@ function remix_get_sidebar( $atts ) {
     $sidebars_widgets = wp_get_sidebars_widgets();
     
     $output = '';
+    
+    //print_r($sidebars_widgets);
     //print_r($wp_registered_widgets);
+    
     if ( $sidebars_widgets ) {
         // display widgets active within our widget area
         foreach ( $sidebars_widgets[$id] as $widget ) {        
@@ -137,8 +185,9 @@ function remix_get_sidebar( $atts ) {
                 $instance[] = $key . '=' . $value;
             }
             $instance_str = implode('&', $instance);
-
-            $output .= do_shortcode('[widget widget_name="' . $widget_name . '" instance="' . $instance_str . '" id="' . $id . '"]');
+            //print_r($instance_str);
+            //$output .= do_shortcode('[widget widget_name="' . $widget_name . '" instance="' . $instance_str . '" id="' . $id . '"]');
+            $output .= remix_get_widget( $widget_name, $instance_array[$id], $id );
         }
     }
     
