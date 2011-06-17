@@ -577,6 +577,28 @@ optgroup {
     background-position: bottom;
 }
 
+/* Help */
+.remix-help h4,
+.remix-help h5 {
+    margin: 0.67em 0;
+}
+
+.remix-help .code-options {
+    margin-left: 10px;
+    margin-bottom: 0.67em;
+    padding-bottom: 0.67em;
+}
+
+  .remix-help .code-options dt {
+      font-weight: bold;
+  }
+
+.remix-help pre {
+    background: #eeeeee;
+    border: 1px solid #dddddd;
+    padding: 10px;
+}
+
 /* http://perishablepress.com/press/2009/12/06/new-clearfix-hack */
 .clearfix:after {
     clear: both;
