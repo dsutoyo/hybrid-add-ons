@@ -31,7 +31,7 @@ function remix_add_shortcodes() {
  * @uses get_bloginfo() Gets information about the install.
  */
 function remix_site_title(){
-  return '<span class="site-title">' . get_bloginfo('name') . '</span>';
+    return '<span class="site-title">' . get_bloginfo('name') . '</span>';
 }
 
 /**
@@ -40,8 +40,12 @@ function remix_site_title(){
  * @since 0.1.0
  * @uses get_bloginfo() Gets information about the install.
  */
-function remix_subscribe_rss(){
-  return '<a class="rss-subscribe" href="'. get_bloginfo('rss2_url') .'" title="'. __('RSS Feeds', hybrid_get_textdomain()) .'">'. __('RSS Feeds', hybrid_get_textdomain()) .'</a>';
+function remix_subscribe_rss( $atts ){
+    extract(shortcode_atts(array(
+        'text' => __( 'RSS Feed', hybrid_get_textdomain() ),
+    ), $atts));
+    
+    return '<a class="rss-subscribe" href="'. get_bloginfo('rss2_url') .'" title="'. __('RSS Feeds', hybrid_get_textdomain()) .'">'. $text .'</a>';
 }
 
 /**

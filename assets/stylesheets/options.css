@@ -599,6 +599,11 @@ optgroup {
     padding: 10px;
 }
 
+.remix-help .code-list li {
+    margin-bottom: 0.67em;
+    padding-bottom: 0.67em;
+}
+
 /* http://perishablepress.com/press/2009/12/06/new-clearfix-hack */
 .clearfix:after {
     clear: both;

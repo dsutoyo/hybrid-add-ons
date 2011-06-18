@@ -108,9 +108,13 @@ function get_the_slideshow() {
                     		'title'	=> get_the_title(),
                     );
                 }
-      	      the_post_thumbnail( 'slideshow', $attr );
-      	      if ( $meta_caption && !$hide_caption ) { ?>
-      	          <span class="orbit-caption" id="htmlCaption<?php echo $iteration; ?>"><?php echo $meta_caption; ?></span>
+                if ( hybrid_get_option( 'slideshow_ratio' ) == 'evoke' ) { 
+      	            the_post_thumbnail( 'slideshow-banner', $attr );
+      	        } else {
+      	            the_post_thumbnail( 'slideshow', $attr );
+      	        }
+      	        if ( $meta_caption && !$hide_caption ) { ?>
+      	            <span class="orbit-caption" id="htmlCaption<?php echo $iteration; ?>"><?php echo $meta_caption; ?></span>
       	      <?php }
       	    } // if has_post_thumbnail
 	          $iteration++;
