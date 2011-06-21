@@ -1,4 +1,5 @@
 @import url(formalize.css);
+@import url(options-forms.css);
 #evoke_options {
     position: relative;
     width: 100%;
@@ -222,6 +223,8 @@
 .option_field,
 .option_select {
     width: 240px;
+    /* IE7 */
+    *width: 200px;
 }
 
 .options_checkbox input {
@@ -235,7 +238,6 @@
     margin-bottom: 0;
     font-weight: normal;
     font-size: 12px;
-    line-height: 12px;
 }
 
 .remove_image input.option_checkbox {
@@ -249,7 +251,6 @@
     margin-bottom: 0;
     font-weight: normal;
     font-size: 12px;
-    line-height: 12px;
 }
 
 #wpcontent select {

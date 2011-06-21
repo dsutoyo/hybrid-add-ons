@@ -70,7 +70,6 @@ function remix_admin_options_page() {
     $prefix = hybrid_get_prefix();
     $data = get_theme_data( trailingslashit( STYLESHEETPATH ) . 'style.css' );
     $theme_name = $data['Name']; ?>
-    
     <div class="wrap">
         <div id='icon-options-general' class="icon32"><br></div>
         <h2>Theme Settings</h2>
@@ -225,6 +224,10 @@ function remix_build_options_field( $args ) {
         echo '<div class="element">';
       	remix_options_checkbox( $args['field_name'], $args['label'] );
       	echo '</div>';
+    } elseif ( $args['type'] == 'text' ) {
+            echo '<div class="element">';
+          	remix_options_text_field( $args['field_name'] );
+          	echo '</div>';
     }
     if ( $args['description'] ) {
         echo '<span class="description">' . $args['description'] . '</span>';
