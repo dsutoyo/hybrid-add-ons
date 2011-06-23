@@ -60,7 +60,7 @@ class Remix_Widget_Flickr extends WP_Widget {
 
     		if ( $username )
 
-          echo "<div class=\"flickr_photos\">
+          echo "<div class=\"flickr_photos clearfix\">
         		<script type=\"text/javascript\" src=\"http://www.flickr.com/badge_code_v2.gne?count=" . $photos . "&amp;display=latest&amp;size=s&amp;layout=x&amp;source=user&amp;user=" . $username . "\"></script>";
         	if ( $instance['photo_size'] == '55' ||  $instance['photo_size'] == '40' ) {
           		echo "<style type=\"text/css\">
@@ -100,7 +100,7 @@ class Remix_Widget_Flickr extends WP_Widget {
   	function form( $instance ) {
 
     		/* Set up some default widget settings. */
-    		$defaults = array( 'title' => __('Flickr', $this->textdomain), 'username' => __('61094143@N00', $this->textdomain), 'photos' => '4', 'photo_size' => '75');
+    		$defaults = array( 'title' => __('Flickr', $this->textdomain), 'username' => __('40414712@N00', $this->textdomain), 'photos' => '4', 'photo_size' => '75');
     		$instance = wp_parse_args( (array) $instance, $defaults );
     		
     		$photo_sizes = array(

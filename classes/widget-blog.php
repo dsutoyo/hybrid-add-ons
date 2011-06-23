@@ -139,7 +139,7 @@ class Remix_Widget_Blog extends WP_Widget {
     		$instance = wp_parse_args( (array) $instance, $defaults );
     		
     		$post_types = get_post_types( array( 'public' => true ), 'objects' );
-    		$content_types = array( 'none' => esc_attr__( 'No content', $this->textdomain ), 'excerpt' => esc_attr__( 'Excerpt only', $this->textdomain ), 'content' => esc_attr__( 'Full content', $this->textdomain ) );
+    		$content_types = array( 'none' => esc_attr__( 'Title only', $this->textdomain ), 'excerpt' => esc_attr__( 'Excerpt only', $this->textdomain ), 'content' => esc_attr__( 'Full content', $this->textdomain ) );
     		?>
 
     		<p>
