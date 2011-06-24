@@ -48,10 +48,10 @@ function remix_get_default_options() {
 function remix_menu_options() {
     $prefix = hybrid_get_prefix();
     $data = get_theme_data( trailingslashit( STYLESHEETPATH ) . 'style.css' );
-    
+    $icon = trailingslashit( HYBRID_ALT_ADMIN_IMAGES ) . 'th-icon.png';
 	  //add_theme_page($data['Name'] . ' Options', $data['Name'] . ' Options', 'edit_theme_options', $prefix . '_settings', 'remix_admin_options_page' );
 	  
-	  $options_page = add_menu_page( 'Page Title', $data['Name'], 'manage_options', $prefix . '_settings', 'remix_admin_options_page', '', 50 );
+	  $options_page = add_menu_page( 'Page Title', $data['Name'], 'manage_options', $prefix . '_settings', 'remix_admin_options_page', $icon, 50 );
 	  
 	  add_submenu_page( $prefix . '_settings', 'Theme Options', 'Theme Options', 'manage_options', $prefix . '_settings', 'remix_admin_options_page' );
 	  
