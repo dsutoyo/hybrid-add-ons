@@ -1,18 +1,8 @@
 /* IE7 */
 
-@import "_formalize-ie";
-
-button,
-input[type="reset"],
-input[type="submit"],
-input[type="button"] {
-    padding-top: 2px;
-    padding-bottom: 0px;
-}
-
-button {
-    padding-top: 1px;
-    padding-bottom: 1px;
+input[type="radio"],
+input[type="checkbox"] {
+    top: -3px;
 }
 
 textarea,
@@ -30,6 +20,5 @@ input[type="text"],
 input[type="time"],
 input[type="url"],
 input[type="week"] {
-    padding-top: 2px;
-    padding-bottom: 1px;
+    height: auto;
 }
