@@ -66,7 +66,7 @@ function slideshow_meta_box( $metabox ) {
 }
 
 function slideshow_enqueue_script() {
-    wp_enqueue_script('cycle', trailingslashit( HYBRID_ALT_ADMIN_JS ) . 'jquery.orbit.min.js', array('jquery'));
+    wp_enqueue_script('cycle', trailingslashit( HYBRID_ALT_ADMIN_JS ) . 'jquery.cycle.all.min.js', array('jquery'));
 }
 
 function get_the_slideshow() {
