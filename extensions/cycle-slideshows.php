@@ -134,6 +134,8 @@ function get_the_slideshow() {
         
         echo $after_slides;
         
+        echo '<div class="slides-navigation"></div>';
+        
     } // end the_query loop
     wp_reset_postdata();
 }
