@@ -74,8 +74,7 @@ class Remix_Widget_Blog extends WP_Widget {
 
 		/* If a title was input by the user, display it. */
 		if ( !empty( $instance['title'] ) )
-			echo $before_title . apply_filters( 'widget_title',  $instance['title'], $instance, $this->id_base ) . $after_title;
-     ?>
+			echo $before_title . apply_filters( 'widget_title',  $instance['title'], $instance, $this->id_base ) . $after_title; ?>
      
     <?php if ( $instance['show_content'] == 'none' ) { ?>
     <ul class="xoxo articles no-excerpt">
@@ -88,6 +87,10 @@ class Remix_Widget_Blog extends WP_Widget {
     		      while ($r->have_posts()) : $r->the_post(); ?>
           		<li>
       		        <h5 class="entry-title"><a href="<?php the_permalink() ?>" title="<?php echo esc_attr(get_the_title() ? get_the_title() : get_the_ID()); ?>"><?php if ( get_the_title() ) the_title(); else the_ID(); ?></a></h5>
+      		        
+      		        <?php if ( $instance['show_date'] == true ) {
+                  	  echo '<p class="entry-date">' . get_the_date( 'M, j, Y' ) . '</p>';
+                  } ?>
           		    
           		    <?php if ( $instance['show_content'] == 'excerpt' ) {
           		        the_excerpt();
@@ -119,6 +122,7 @@ class Remix_Widget_Blog extends WP_Widget {
 		$instance['posts'] = strip_tags( $new_instance['posts'] );
 		$instance['post_type'] = strip_tags( $new_instance['post_type'] );
 		$instance['show_content'] = $new_instance['show_content'];
+		$instance['show_date'] = ( isset( $new_instance['show_date'] ) ? 1 : 0 );
 
 		return $instance;
 	}
@@ -134,7 +138,8 @@ class Remix_Widget_Blog extends WP_Widget {
     		    'title' => __('Recent Posts', $this->textdomain),
     		    'posts' => __('5', $this->textdomain),
     		    'post_type' => 'post',
-    		    'show_content' => 'excerpt'
+    		    'show_content' => 'excerpt',
+    		    'show_date' => false
     		);
     		$instance = wp_parse_args( (array) $instance, $defaults );
     		
@@ -169,6 +174,12 @@ class Remix_Widget_Blog extends WP_Widget {
     					<option value="<?php echo esc_attr( $option_value ); ?>"<?php selected( $instance['show_content'], $option_value ); ?>><?php echo esc_html( $option_label ); ?></option>
     				<?php } ?>
     			</select>
+    		</p>
+    		
+    		<p>
+    		  <label for="<?php echo $this->get_field_id( 'show_date' ); ?>">
+    		  <input type="checkbox" <?php checked( $instance['show_date'], true ); ?> id="<?php echo $this->get_field_id( 'show_date' ); ?>" name="<?php echo $this->get_field_name( 'show_date' ); ?>" /> <?php _e( 'Show date?', $this->textdomain ); ?></label>
+    		  
     		</p>
 
 	  <?php
