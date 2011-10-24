@@ -58,6 +58,7 @@ class Remix_Widget_Twitter extends WP_Widget {
     		if ( !empty( $instance['title'] ) )
     			echo $before_title . apply_filters( 'widget_title',  $instance['title'], $instance, $this->id_base ) . $after_title;
 
+        /* Get Twitter API */
     		if ( $username )	
       		echo "<div id=\"twitter_div\">
           <ul id=\"twitter_update_list\"></ul>
