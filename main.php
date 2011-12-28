@@ -29,13 +29,13 @@ add_action( 'widgets_init', 'remix_register_widgets' );
 		
 function remix_init() {
     /* Sets the path to the core framework extensions directory. */
-		define( 'HYBRID_ADDONS', trailingslashit( HYBRID_DIR ) . 'add-ons' );
-		
-		define( 'HYBRID_ALT_ADMIN_JS', trailingslashit( HYBRID_URI ) . 'add-ons/assets/javascripts' );
-		
-		define( 'HYBRID_ALT_ADMIN_CSS', trailingslashit( HYBRID_URI ) . 'add-ons/assets/stylesheets' );
-		
-		define( 'HYBRID_ALT_ADMIN_IMAGES', trailingslashit( HYBRID_URI ) . 'add-ons/assets/images' );
+	define( 'HYBRID_ADDONS', trailingslashit( HYBRID_DIR ) . 'add-ons' );
+	
+	define( 'HYBRID_ALT_ADMIN_JS', trailingslashit( HYBRID_URI ) . 'add-ons/assets/javascripts' );
+	
+	define( 'HYBRID_ALT_ADMIN_CSS', trailingslashit( HYBRID_URI ) . 'add-ons/assets/stylesheets' );
+	
+	define( 'HYBRID_ALT_ADMIN_IMAGES', trailingslashit( HYBRID_URI ) . 'add-ons/assets/images' );
   
     require_if_theme_supports( 'alt-theme-options', trailingslashit( HYBRID_ADDONS ) . 'options/theme-options.php' );
   
@@ -45,11 +45,13 @@ function remix_init() {
     
     require_if_theme_supports( 'custom-stylesheets', trailingslashit( HYBRID_ADDONS ) . 'extensions/custom-stylesheets.php' );
     
+	require_if_theme_supports( 'cleaner-code', trailingslashit( HYBRID_ADDONS ) . 'functions/declutter.php' );
+
     /* Load the shortcodes if supported. */
-		require_if_theme_supports( 'hybrid-core-shortcodes', trailingslashit( HYBRID_ADDONS ) . 'functions/shortcodes.php' );
-		
-		/* Load the post meta box if supported. */
-		require_if_theme_supports( 'hybrid-core-post-meta-box', trailingslashit( HYBRID_ADDONS ) . 'admin/post-meta-box.php' );
+	require_if_theme_supports( 'hybrid-core-shortcodes', trailingslashit( HYBRID_ADDONS ) . 'functions/shortcodes.php' );
+	
+	/* Load the post meta box if supported. */
+	require_if_theme_supports( 'hybrid-core-post-meta-box', trailingslashit( HYBRID_ADDONS ) . 'admin/post-meta-box.php' );
     
 }
 
