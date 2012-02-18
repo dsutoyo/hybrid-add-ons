@@ -37,13 +37,13 @@ function remix_init() {
 	
 	define( 'HYBRID_ALT_ADMIN_IMAGES', trailingslashit( HYBRID_URI ) . 'add-ons/assets/images' );
   
-    require_if_theme_supports( 'alt-theme-options', trailingslashit( HYBRID_ADDONS ) . 'options/theme-options.php' );
+	require_if_theme_supports( 'alt-theme-options', trailingslashit( HYBRID_ADDONS ) . 'options/theme-options.php' );
   
-    require_if_theme_supports( 'orbit-slideshows', trailingslashit( HYBRID_ADDONS ) . 'extensions/orbit-slideshows.php' );
+	require_if_theme_supports( 'orbit-slideshows', trailingslashit( HYBRID_ADDONS ) . 'extensions/orbit-slideshows.php' );
     
-    require_if_theme_supports( 'cycle-slideshows', trailingslashit( HYBRID_ADDONS ) . 'extensions/cycle-slideshows.php' );
+	require_if_theme_supports( 'cycle-slideshows', trailingslashit( HYBRID_ADDONS ) . 'extensions/cycle-slideshows.php' );
     
-    require_if_theme_supports( 'custom-stylesheets', trailingslashit( HYBRID_ADDONS ) . 'extensions/custom-stylesheets.php' );
+	require_if_theme_supports( 'custom-stylesheets', trailingslashit( HYBRID_ADDONS ) . 'extensions/custom-stylesheets.php' );
     
 	require_if_theme_supports( 'cleaner-code', trailingslashit( HYBRID_ADDONS ) . 'functions/declutter.php' );
 
