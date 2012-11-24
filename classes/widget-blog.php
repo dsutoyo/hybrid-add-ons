@@ -69,36 +69,44 @@ class Remix_Widget_Blog extends WP_Widget {
 			'ignore_sticky_posts' => true
 		);
 
-		/* Before widget (defined by themes). */
-		echo $before_widget;
+ 		/* Before widget (defined by themes). */
+ 		echo $before_widget;
 
 		/* If a title was input by the user, display it. */
 		if ( !empty( $instance['title'] ) )
-			echo $before_title . apply_filters( 'widget_title',  $instance['title'], $instance, $this->id_base ) . $after_title;
-	?>
-
-	 <ul class="xoxo articles">
+			echo $before_title . apply_filters( 'widget_title',  $instance['title'], $instance, $this->id_base ) . $after_title; ?>
+     
+		<?php if ( $instance['show_content'] == 'none' ) { ?>
+		<ul class="xoxo articles no-excerpt">
+		<?php } else { ?>
+		<ul class="xoxo articles">
+		<?php } ?>
+		
 		<?php $r = new WP_Query($args);
-			  
 			if ($r->have_posts()) :
 				while ($r->have_posts()) : $r->the_post(); ?>
-				<li>
-					<h4 class="entry-title"><a href="<?php the_permalink() ?>" title="<?php echo esc_attr(get_the_title() ? get_the_title() : get_the_ID()); ?>"><?php if ( get_the_title() ) the_title(); else the_ID(); ?></a></h4>
-					<?php if ( $instance['show_content'] == 'excerpt' ) {
-						the_excerpt();
-					} elseif ( $instance['show_content'] == 'content' ) {
-						the_content();
-					} ?>
-				</li>
+					<li>
+						<h5 class="entry-title"><a href="<?php the_permalink() ?>" title="<?php echo esc_attr(get_the_title() ? get_the_title() : get_the_ID()); ?>"><?php if ( get_the_title() ) the_title(); else the_ID(); ?></a></h5>
+
+						<?php if ( $instance['show_date'] == true ) {
+							echo '<p class="entry-date">' . get_the_date( 'M, j, Y' ) . '</p>';
+						} ?>
+
+						<?php if ( $instance['show_content'] == 'excerpt' ) {
+							the_excerpt();
+						} elseif ( $instance['show_content'] == 'content' ) {
+							the_content();
+						} ?>
+					</li>
 				<?php endwhile;
-				
-			  // Reset the global $the_post as this query will have stomped on it
-			  wp_reset_postdata();
+
+				// Reset the global $the_post as this query will have stomped on it
+				wp_reset_postdata();
 
 			endif; ?>
-			  
+
 		</ul>
-		
+
 		<?php echo $after_widget;
 	}
 
@@ -114,6 +122,7 @@ class Remix_Widget_Blog extends WP_Widget {
 		$instance['posts'] = strip_tags( $new_instance['posts'] );
 		$instance['post_type'] = strip_tags( $new_instance['post_type'] );
 		$instance['show_content'] = $new_instance['show_content'];
+		$instance['show_date'] = ( isset( $new_instance['show_date'] ) ? 1 : 0 );
 
 		return $instance;
 	}
@@ -129,19 +138,21 @@ class Remix_Widget_Blog extends WP_Widget {
 			'title' => __('Recent Posts', $this->textdomain),
 			'posts' => __('5', $this->textdomain),
 			'post_type' => 'post',
-			'show_content' => 'excerpt'
+			'show_content' => 'excerpt',
+			'show_date' => false
 		);
 		$instance = wp_parse_args( (array) $instance, $defaults );
-		
+
 		$post_types = get_post_types( array( 'public' => true ), 'objects' );
-		$content_types = array( 'none' => esc_attr__( 'No content', $this->textdomain ), 'excerpt' => esc_attr__( 'Excerpt only', $this->textdomain ), 'content' => esc_attr__( 'Full content', $this->textdomain ) );
+		$content_types = array( 'none' => esc_attr__( 'Title only', $this->textdomain ), 'excerpt' => esc_attr__( 'Excerpt only', $this->textdomain ), 'content' => esc_attr__( 'Full content', $this->textdomain ) );
 		?>
 
 		<p>
 			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e('Title:', $this->textdomain); ?></label>
 			<input id="<?php echo $this->get_field_id( 'title' ); ?>" type="text" class="widefat" name="<?php echo $this->get_field_name( 'title' ); ?>" value="<?php echo $instance['title']; ?>" />
 		</p>
-	
+		
+
 		<p>
 			<label for="<?php echo $this->get_field_id( 'post_type' ); ?>">Post Type:</label>
 			<select class="widefat" id="<?php echo $this->get_field_id( 'post_type' ); ?>" name="<?php echo $this->get_field_name( 'post_type' ); ?>">
@@ -150,7 +161,7 @@ class Remix_Widget_Blog extends WP_Widget {
 				<?php } ?>
 			</select>
 		</p>
-	
+
 		<p>
 			<label for="<?php echo $this->get_field_id( 'posts' ); ?>"><?php _e('Number of Posts:', $this->textdomain); ?></label>
 			<input id="<?php echo $this->get_field_id( 'posts' ); ?>" type="text" class="widefat" name="<?php echo $this->get_field_name( 'posts' ); ?>" value="<?php echo $instance['posts']; ?>" />
@@ -159,11 +170,16 @@ class Remix_Widget_Blog extends WP_Widget {
 		<p>
 			<label for="<?php echo $this->get_field_id( 'show_content' ); ?>">Show:</label>
 			<select class="widefat" id="<?php echo $this->get_field_id( 'show_content' ); ?>" name="<?php echo $this->get_field_name( 'show_content' ); ?>">
-			
-				<?php foreach ( $content_types as $option_value => $option_label ) { ?>
-					<option value="<?php echo esc_attr( $option_value ); ?>"<?php selected( $instance['show_content'], $option_value ); ?>><?php echo esc_html( $option_label ); ?></option>
-				<?php } ?>
+    
+			<?php foreach ( $content_types as $option_value => $option_label ) { ?>
+				<option value="<?php echo esc_attr( $option_value ); ?>"<?php selected( $instance['show_content'], $option_value ); ?>><?php echo esc_html( $option_label ); ?></option>
+			<?php } ?>
 			</select>
+		</p>
+
+		<p>
+			<label for="<?php echo $this->get_field_id( 'show_date' ); ?>">
+				<input type="checkbox" <?php checked( $instance['show_date'], true ); ?> id="<?php echo $this->get_field_id( 'show_date' ); ?>" name="<?php echo $this->get_field_name( 'show_date' ); ?>" /> <?php _e( 'Show date?', $this->textdomain ); ?></label>
 		</p>
 
 	<?php

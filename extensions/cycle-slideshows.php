@@ -66,7 +66,7 @@ function slideshow_meta_box( $metabox ) {
 }
 
 function slideshow_enqueue_script() {
-	wp_enqueue_script('cycle', trailingslashit( HYBRID_ALT_ADMIN_JS ) . 'jquery.orbit.min.js', array('jquery'));
+    wp_enqueue_script('cycle', trailingslashit( HYBRID_ALT_ADMIN_JS ) . 'jquery.cycle.all.min.js', array('jquery'));
 }
 
 function get_the_slideshow() {
@@ -98,7 +98,6 @@ function get_the_slideshow() {
 			$meta_caption = get_post_meta($slides->post->ID, 'slide_caption', true);
 			$hide_caption = get_post_meta($slides->post->ID, 'hide_caption', true);
 			$hide_title = get_post_meta($slides->post->ID, 'hide_title', true);
-
 			echo '<div>';
 			
 			if ( has_post_thumbnail() ) {
@@ -136,6 +135,7 @@ function get_the_slideshow() {
 		
 	} // end the_query loop
 	wp_reset_postdata();
+
 }
 
 ?>

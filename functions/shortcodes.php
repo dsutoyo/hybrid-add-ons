@@ -31,7 +31,7 @@ function remix_add_shortcodes() {
  * @uses get_bloginfo() Gets information about the install.
  */
 function remix_site_title(){
-	return '<span class="site-title">' . get_bloginfo('name') . '</span>';
+    return '<span class="site-title">' . get_bloginfo('name') . '</span>';
 }
 
 /**
@@ -40,8 +40,12 @@ function remix_site_title(){
  * @since 0.1.0
  * @uses get_bloginfo() Gets information about the install.
  */
-function remix_subscribe_rss(){
-	return '<a class="rss-subscribe" href="'. get_bloginfo('rss2_url') .'" title="'. __('RSS Feeds', hybrid_get_textdomain()) .'">'. __('RSS Feeds', hybrid_get_textdomain()) .'</a>';
+function remix_subscribe_rss( $atts ){
+    extract(shortcode_atts(array(
+        'text' => __( 'RSS Feed', hybrid_get_textdomain() ),
+    ), $atts));
+    
+    return '<a class="rss-subscribe" href="'. get_bloginfo('rss2_url') .'" title="'. __('RSS Feeds', hybrid_get_textdomain()) .'">'. $text .'</a>';
 }
 
 /**
@@ -50,52 +54,97 @@ function remix_subscribe_rss(){
  * @since 0.1.0
  * @uses the_widget() Displays a widget
  */
-function remix_widget( $atts ) {
-	
-	global $wp_widget_factory;
+function remix_widget( $atts ) {    
+    global $wp_widget_factory;
 
-	extract(shortcode_atts(array(
-		'widget_name' => '',
-		'instance' => '',
-		'id' => ''
-	), $atts));
-	// Put '&' characters back in
-	$instance = str_ireplace("&#038;", '&' ,$instance);
+    extract(shortcode_atts(array(
+        'widget_name' => '',
+        'instance' => '',
+        'id' => ''
+    ), $atts));
+    
+    // Put '&' characters back in
+    $instance = str_ireplace("&#038;", '&' ,$instance);
 
-	$widget_name = esc_html($widget_name);
-	
-	// Make sure our widget is registered
-	if ( !is_a($wp_widget_factory->widgets[$widget_name], 'WP_Widget') ):
-		$wp_class = 'WP_Widget_'.ucwords(strtolower($class));
-		
-		if ( !is_a($wp_widget_factory->widgets[$wp_class], 'WP_Widget') ):
-			return '<p>'.sprintf(__("%s: Widget class not found. Make sure this widget exists and the class name is correct"),'<strong>'.$class.'</strong>').'</p>';
-		else:
-			$class = $wp_class;
-		endif;
-	endif;
-	
-	ob_start();
-	
-	$classname = $wp_widget_factory->widgets[$widget_name]->widget_options['classname'];
-	$id = $wp_widget_factory->widgets[$widget_name]->id;
-	$before_widget = sprintf('<div id="%1$s" class="widget %2$s widget-%2$s">', $id, $classname);
+    $widget_name = esc_html($widget_name);
+    
+    // Make sure our widget is registered
+    if ( !is_a($wp_widget_factory->widgets[$widget_name], 'WP_Widget') ):
+        $wp_class = 'WP_Widget_'.ucwords(strtolower($class));
+        
+        if ( !is_a($wp_widget_factory->widgets[$wp_class], 'WP_Widget') ):
+            return '<p>'.sprintf(__("%s: Widget class not found. Make sure this widget exists and the class name is correct"),'<strong>'.$class.'</strong>').'</p>';
+        else:
+            $class = $wp_class;
+        endif;
+    endif;
+    
+    ob_start();
+    
+    $classname = $wp_widget_factory->widgets[$widget_name]->widget_options['classname'];
+    $id = $wp_widget_factory->widgets[$widget_name]->id;
+    $before_widget = sprintf('<div id="%1$s" class="widget %2$s widget-%2$s">', $id, $classname);
 
-	// put the arguments into an array, prepping for filter
-	$widget_layout_args = array(
-			'before_widget' => $before_widget . '<div class="widget-wrap widget-inside">',
-			'after_widget' => '</div></div>',
-			'before_title' => '<h3 class="widget-title">',
-			'after_title' => '</h3>'
-	);
+    // put the arguments into an array, prepping for filter
+    $widget_layout_args = array(
+    		'before_widget' => $before_widget . '<div class="widget-wrap widget-inside">',
+    		'after_widget' => '</div></div>',
+    		'before_title' => '<h3 class="widget-title">',
+    		'after_title' => '</h3>'
+    );
 
-	the_widget($widget_name, $instance, $widget_layout_args);
-	$output = ob_get_contents();
-	
-	ob_end_clean();
-	
-	return $output;
+    the_widget($widget_name, $instance, $widget_layout_args);
+    $output = ob_get_contents();
+    
+    ob_end_clean();
+    
+    return $output;
+}
 
+
+/**
+ * Function equivalent of the widget shortcode.
+ *
+ * @since 0.1.0
+ * @uses the_widget() Displays a widget
+ */
+function remix_get_widget( $widget_name, $instance, $id ) {
+    
+    global $wp_widget_factory;
+    
+    $widget_name = esc_html($widget_name);
+    
+    // Make sure our widget is registered
+    if ( !is_a($wp_widget_factory->widgets[$widget_name], 'WP_Widget') ):
+        $wp_class = 'WP_Widget_'.ucwords(strtolower($class));
+        
+        if ( !is_a($wp_widget_factory->widgets[$wp_class], 'WP_Widget') ):
+            return '<p>'.sprintf(__("%s: Widget class not found. Make sure this widget exists and the class name is correct"),'<strong>'.$class.'</strong>').'</p>';
+        else:
+            $class = $wp_class;
+        endif;
+    endif;
+    
+    ob_start();
+    
+    $classname = $wp_widget_factory->widgets[$widget_name]->widget_options['classname'];
+    $id = $wp_widget_factory->widgets[$widget_name]->id;
+    $before_widget = sprintf('<div id="%1$s" class="widget %2$s widget-%2$s">', $id, $classname);
+
+    // put the arguments into an array, prepping for filter
+    $widget_layout_args = array(
+		'before_widget' => $before_widget . '<div class="widget-wrap widget-inside">',
+		'after_widget' => '</div></div>',
+		'before_title' => '<h3 class="widget-title">',
+		'after_title' => '</h3>'
+    );
+
+    the_widget($widget_name, $instance, $widget_layout_args);
+    $output = ob_get_contents();
+    
+    ob_end_clean();
+    
+    return $output;
 }
 
 /**
@@ -105,36 +154,42 @@ function remix_widget( $atts ) {
  * @uses wp_get_sidebars_widgets() Retrieve full list of sidebars and their widgets.
  * @uses remix_get_widget_settings() Returns settings of a widget instance
  */
-function remix_get_sidebar() {
-	global $wp_registered_widgets;
-	
-	$sidebars_widgets = wp_get_sidebars_widgets();
-	
-	$output = '';
-	
-	if ( $sidebars_widgets ) {
-		// display widgets active within our widget area
-		foreach ( $sidebars_widgets['primary'] as $widget ) {        
+function remix_get_sidebar( $atts ) {
+    global $wp_registered_widgets;
+    
+    extract(shortcode_atts(array(
+        'id' => 'primary'
+    ), $atts));
+    
+    // Get the widgets associated with each sidebar
+    $sidebars_widgets = wp_get_sidebars_widgets();
+    
+    $output = '';
+    
+    if ( $sidebars_widgets ) {
+        // display widgets active within our widget area
+        foreach ( $sidebars_widgets[$id] as $widget ) {        
 			// find the active widgets for the sidebar
 			$wp_registered_widgets[$widget];
-			
+
 			$the_widget = $wp_registered_widgets[$widget]['callback'][0];
+
 			$widget_name = get_class($the_widget);
-			$id = $wp_registered_widgets[$widget]['params'];
+			$id = $wp_registered_widgets[$widget]['params'][0]['number'];
 			$instance_array = remix_get_widget_settings($the_widget);
-	
+
 			$instance = array();
 
-			foreach ( $instance_array[3] as $key => $value ) {
-				$instance[] = $key . '=' . $value;
+			foreach ( $instance_array[$id] as $key => $value ) {
+			    $instance[] = $key . '=' . $value;
 			}
 			$instance_str = implode('&', $instance);
 
-			$output .= do_shortcode('[widget widget_name="' . $widget_name . '" instance="' . $instance_str . '" id="' . $id . '"]');
-		}
-	}
-	
-	return $output;
+			$output .= remix_get_widget( $widget_name, $instance_array[$id], $id );
+        }
+    }
+    
+    return $output;
 }
 
 /**
