@@ -60,46 +60,46 @@ class Remix_Widget_Blog extends WP_Widget {
 	function widget( $args, $instance ) {
 		extract( $args );
 
-    /* Set up the arguments for WP_Query. */
-    $args = array(
-        'posts_per_page' => $instance['posts'],
-        'nopaging' => 0,
-        'post_status' => 'publish',
-        'post_type' => $instance['post_type'],
-        'ignore_sticky_posts' => true
-    );
+		/* Set up the arguments for WP_Query. */
+		$args = array(
+			'posts_per_page' => $instance['posts'],
+			'nopaging' => 0,
+			'post_status' => 'publish',
+			'post_type' => $instance['post_type'],
+			'ignore_sticky_posts' => true
+		);
 
- 		/* Before widget (defined by themes). */
- 		echo $before_widget;
+		/* Before widget (defined by themes). */
+		echo $before_widget;
 
 		/* If a title was input by the user, display it. */
 		if ( !empty( $instance['title'] ) )
 			echo $before_title . apply_filters( 'widget_title',  $instance['title'], $instance, $this->id_base ) . $after_title;
-     ?>
+	?>
 
-     <ul class="xoxo articles">
-         <?php $r = new WP_Query($args);
-    		  
-    		  if ($r->have_posts()) :
-    		      while ($r->have_posts()) : $r->the_post(); ?>
-          		<li>
-          		    <h4 class="entry-title"><a href="<?php the_permalink() ?>" title="<?php echo esc_attr(get_the_title() ? get_the_title() : get_the_ID()); ?>"><?php if ( get_the_title() ) the_title(); else the_ID(); ?></a></h4>
-          		    <?php if ( $instance['show_content'] == 'excerpt' ) {
-          		        the_excerpt();
-          		    } elseif ( $instance['show_content'] == 'content' ) {
-          		        the_content();
-          		    } ?>
-          		</li>
-          		<?php endwhile;
-          		
-              // Reset the global $the_post as this query will have stomped on it
-              wp_reset_postdata();
+	 <ul class="xoxo articles">
+		<?php $r = new WP_Query($args);
+			  
+			if ($r->have_posts()) :
+				while ($r->have_posts()) : $r->the_post(); ?>
+				<li>
+					<h4 class="entry-title"><a href="<?php the_permalink() ?>" title="<?php echo esc_attr(get_the_title() ? get_the_title() : get_the_ID()); ?>"><?php if ( get_the_title() ) the_title(); else the_ID(); ?></a></h4>
+					<?php if ( $instance['show_content'] == 'excerpt' ) {
+						the_excerpt();
+					} elseif ( $instance['show_content'] == 'content' ) {
+						the_content();
+					} ?>
+				</li>
+				<?php endwhile;
+				
+			  // Reset the global $the_post as this query will have stomped on it
+			  wp_reset_postdata();
 
-  		    endif; ?>
-  		      
-  		</ul>
-  		
-    	<?php echo $after_widget;
+			endif; ?>
+			  
+		</ul>
+		
+		<?php echo $after_widget;
 	}
 
 	/**
@@ -124,49 +124,49 @@ class Remix_Widget_Blog extends WP_Widget {
 	 */
 	function form( $instance ) {
 
-    		/* Set up some default widget settings. */
-    		$defaults = array( 
-    		    'title' => __('Recent Posts', $this->textdomain),
-    		    'posts' => __('5', $this->textdomain),
-    		    'post_type' => 'post',
-    		    'show_content' => 'excerpt'
-    		);
-    		$instance = wp_parse_args( (array) $instance, $defaults );
-    		
-    		$post_types = get_post_types( array( 'public' => true ), 'objects' );
-    		$content_types = array( 'none' => esc_attr__( 'No content', $this->textdomain ), 'excerpt' => esc_attr__( 'Excerpt only', $this->textdomain ), 'content' => esc_attr__( 'Full content', $this->textdomain ) );
-    		?>
-
-    		<p>
-    			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e('Title:', $this->textdomain); ?></label>
-    			<input id="<?php echo $this->get_field_id( 'title' ); ?>" type="text" class="widefat" name="<?php echo $this->get_field_name( 'title' ); ?>" value="<?php echo $instance['title']; ?>" />
-    		</p>
+		/* Set up some default widget settings. */
+		$defaults = array( 
+			'title' => __('Recent Posts', $this->textdomain),
+			'posts' => __('5', $this->textdomain),
+			'post_type' => 'post',
+			'show_content' => 'excerpt'
+		);
+		$instance = wp_parse_args( (array) $instance, $defaults );
 		
-		    <p>
-		      <label for="<?php echo $this->get_field_id( 'post_type' ); ?>">Post Type:</label>
-  		    <select class="widefat" id="<?php echo $this->get_field_id( 'post_type' ); ?>" name="<?php echo $this->get_field_name( 'post_type' ); ?>">
-    				<?php foreach ( $post_types as $type ) { ?>
-    					<option value="<?php echo esc_attr( $type->name ); ?>"<?php selected( $instance['post_type'], $type->name ); ?>><?php echo esc_html( $type->labels->name ); ?></option>
-    				<?php } ?>
-    			</select>
-  			</p>
-		
-    		<p>
-    			<label for="<?php echo $this->get_field_id( 'posts' ); ?>"><?php _e('Number of Posts:', $this->textdomain); ?></label>
-    			<input id="<?php echo $this->get_field_id( 'posts' ); ?>" type="text" class="widefat" name="<?php echo $this->get_field_name( 'posts' ); ?>" value="<?php echo $instance['posts']; ?>" />
-    		</p>
+		$post_types = get_post_types( array( 'public' => true ), 'objects' );
+		$content_types = array( 'none' => esc_attr__( 'No content', $this->textdomain ), 'excerpt' => esc_attr__( 'Excerpt only', $this->textdomain ), 'content' => esc_attr__( 'Full content', $this->textdomain ) );
+		?>
 
-    		<p>
-    		  <label for="<?php echo $this->get_field_id( 'show_content' ); ?>">Show:</label>
-    		  <select class="widefat" id="<?php echo $this->get_field_id( 'show_content' ); ?>" name="<?php echo $this->get_field_name( 'show_content' ); ?>">
-    		    
-  					<?php foreach ( $content_types as $option_value => $option_label ) { ?>
-    					<option value="<?php echo esc_attr( $option_value ); ?>"<?php selected( $instance['show_content'], $option_value ); ?>><?php echo esc_html( $option_label ); ?></option>
-    				<?php } ?>
-    			</select>
-    		</p>
+		<p>
+			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e('Title:', $this->textdomain); ?></label>
+			<input id="<?php echo $this->get_field_id( 'title' ); ?>" type="text" class="widefat" name="<?php echo $this->get_field_name( 'title' ); ?>" value="<?php echo $instance['title']; ?>" />
+		</p>
+	
+		<p>
+			<label for="<?php echo $this->get_field_id( 'post_type' ); ?>">Post Type:</label>
+			<select class="widefat" id="<?php echo $this->get_field_id( 'post_type' ); ?>" name="<?php echo $this->get_field_name( 'post_type' ); ?>">
+				<?php foreach ( $post_types as $type ) { ?>
+					<option value="<?php echo esc_attr( $type->name ); ?>"<?php selected( $instance['post_type'], $type->name ); ?>><?php echo esc_html( $type->labels->name ); ?></option>
+				<?php } ?>
+			</select>
+		</p>
+	
+		<p>
+			<label for="<?php echo $this->get_field_id( 'posts' ); ?>"><?php _e('Number of Posts:', $this->textdomain); ?></label>
+			<input id="<?php echo $this->get_field_id( 'posts' ); ?>" type="text" class="widefat" name="<?php echo $this->get_field_name( 'posts' ); ?>" value="<?php echo $instance['posts']; ?>" />
+		</p>
 
-	  <?php
+		<p>
+			<label for="<?php echo $this->get_field_id( 'show_content' ); ?>">Show:</label>
+			<select class="widefat" id="<?php echo $this->get_field_id( 'show_content' ); ?>" name="<?php echo $this->get_field_name( 'show_content' ); ?>">
+			
+				<?php foreach ( $content_types as $option_value => $option_label ) { ?>
+					<option value="<?php echo esc_attr( $option_value ); ?>"<?php selected( $instance['show_content'], $option_value ); ?>><?php echo esc_html( $option_label ); ?></option>
+				<?php } ?>
+			</select>
+		</p>
+
+	<?php
 	}
 }
 

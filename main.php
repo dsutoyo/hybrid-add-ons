@@ -28,40 +28,40 @@ add_action( 'after_setup_theme', 'remix_init', 14 );
 add_action( 'widgets_init', 'remix_register_widgets' );
 		
 function remix_init() {
-    /* Sets the path to the core framework extensions directory. */
-		define( 'HYBRID_ADDONS', trailingslashit( HYBRID_DIR ) . 'add-ons' );
-		
-		define( 'HYBRID_ALT_ADMIN_JS', trailingslashit( HYBRID_URI ) . 'add-ons/assets/javascripts' );
-		
-		define( 'HYBRID_ALT_ADMIN_CSS', trailingslashit( HYBRID_URI ) . 'add-ons/assets/stylesheets' );
-		
-		define( 'HYBRID_ALT_ADMIN_IMAGES', trailingslashit( HYBRID_URI ) . 'add-ons/assets/images' );
+/* Sets the path to the core framework extensions directory. */
+	define( 'HYBRID_ADDONS', trailingslashit( HYBRID_DIR ) . 'add-ons' );
+	
+	define( 'HYBRID_ALT_ADMIN_JS', trailingslashit( HYBRID_URI ) . 'add-ons/assets/javascripts' );
+	
+	define( 'HYBRID_ALT_ADMIN_CSS', trailingslashit( HYBRID_URI ) . 'add-ons/assets/stylesheets' );
+	
+	define( 'HYBRID_ALT_ADMIN_IMAGES', trailingslashit( HYBRID_URI ) . 'add-ons/assets/images' );
   
-    require_if_theme_supports( 'alt-theme-options', trailingslashit( HYBRID_ADDONS ) . 'options/theme-options.php' );
+	require_if_theme_supports( 'alt-theme-options', trailingslashit( HYBRID_ADDONS ) . 'options/theme-options.php' );
   
-    require_if_theme_supports( 'orbit-slideshows', trailingslashit( HYBRID_ADDONS ) . 'extensions/orbit-slideshows.php' );
-    
-    require_if_theme_supports( 'cycle-slideshows', trailingslashit( HYBRID_ADDONS ) . 'extensions/cycle-slideshows.php' );
-    
-    /* Load the shortcodes if supported. */
+	require_if_theme_supports( 'orbit-slideshows', trailingslashit( HYBRID_ADDONS ) . 'extensions/orbit-slideshows.php' );
+	
+	require_if_theme_supports( 'cycle-slideshows', trailingslashit( HYBRID_ADDONS ) . 'extensions/cycle-slideshows.php' );
+	
+	/* Load the shortcodes if supported. */
 		require_if_theme_supports( 'hybrid-core-shortcodes', trailingslashit( HYBRID_ADDONS ) . 'functions/shortcodes.php' );
 		
 		/* Load the post meta box if supported. */
 		require_if_theme_supports( 'hybrid-core-post-meta-box', trailingslashit( HYBRID_ADDONS ) . 'admin/post-meta-box.php' );
-    
+	
 }
 
 function remix_register_widgets() {
-  if ( current_theme_supports( 'hybrid-core-widgets' ) ) :
-    	/* Load the core framework widget files. */
-    	require_once( trailingslashit( HYBRID_ADDONS ) . 'classes/widget-blog.php' );
-    	require_once( trailingslashit( HYBRID_ADDONS ) . 'classes/widget-flickr.php' );
-    	require_once( trailingslashit( HYBRID_ADDONS ) . 'classes/widget-twitter.php' );
+	if ( current_theme_supports( 'hybrid-core-widgets' ) ) :
+		/* Load the core framework widget files. */
+		require_once( trailingslashit( HYBRID_ADDONS ) . 'classes/widget-blog.php' );
+		require_once( trailingslashit( HYBRID_ADDONS ) . 'classes/widget-flickr.php' );
+		require_once( trailingslashit( HYBRID_ADDONS ) . 'classes/widget-twitter.php' );
 
-    	/* Register each of the core framework widgets. */
-    	register_widget( 'Remix_Widget_Blog' );
-    	register_widget( 'Remix_Widget_Flickr' );
-    	register_widget( 'Remix_Widget_Twitter' );
+		/* Register each of the core framework widgets. */
+		register_widget( 'Remix_Widget_Blog' );
+		register_widget( 'Remix_Widget_Flickr' );
+		register_widget( 'Remix_Widget_Twitter' );
 	endif;
 }
 
@@ -98,74 +98,74 @@ function hybrid_get_option( $option = '' ) {
 }
 
 function remix_get_featured_media( $id, $args = '' ) {
-    
-    $prefix = hybrid_get_prefix();
-    
-    $embed_defaults = wp_embed_defaults();
-    
-    $defaults = array(
-        'size' => '',
-        'width' => $embed_defaults['width'],
-        'height' => round($embed_defaults['width'] * 9 / 16),
-        'ratio' => '',
-    );
-    
-  	$args = wp_parse_args( $args, $defaults );
+	
+	$prefix = hybrid_get_prefix();
+	
+	$embed_defaults = wp_embed_defaults();
+	
+	$defaults = array(
+		'size' => '',
+		'width' => $embed_defaults['width'],
+		'height' => round($embed_defaults['width'] * 9 / 16),
+		'ratio' => '',
+	);
+	
+	$args = wp_parse_args( $args, $defaults );
 
-    $use_registered_sizes = false;
+	$use_registered_sizes = false;
 
-    switch ( $args['size'] ) :
-        case 'thumbnail' :
-            $args['width'] = get_option( 'thumbnail_size_w' );
-            $args['height'] = get_option( 'thumbnail_size_h' );
-            $use_registered_sizes = true;
-            break;
-        case 'medium' :
-            $args['width'] = get_option( 'medium_size_w' );
-            $args['height'] = get_option( 'medium_size_h' );
-            $use_registered_sizes = true;
-            break;
-        case 'large' :
-            $args['width'] = get_option( 'large_size_w' );
-            $args['height'] = get_option( 'large_size_h' );
-            $use_registered_sizes = true;
-            break;
-        case '' :
-            break;
-    endswitch;
-    
-    if ( $args['ratio'] != '' ) {
-        $aspect_ratio = split('/', $args['ratio']);
-        $args['height'] = $args['width'] * $aspect_ratio[0] / $aspect_ratio[1];
-    }
+	switch ( $args['size'] ) :
+		case 'thumbnail' :
+			$args['width'] = get_option( 'thumbnail_size_w' );
+			$args['height'] = get_option( 'thumbnail_size_h' );
+			$use_registered_sizes = true;
+			break;
+		case 'medium' :
+			$args['width'] = get_option( 'medium_size_w' );
+			$args['height'] = get_option( 'medium_size_h' );
+			$use_registered_sizes = true;
+			break;
+		case 'large' :
+			$args['width'] = get_option( 'large_size_w' );
+			$args['height'] = get_option( 'large_size_h' );
+			$use_registered_sizes = true;
+			break;
+		case '' :
+			break;
+	endswitch;
+	
+	if ( $args['ratio'] != '' ) {
+		$aspect_ratio = split('/', $args['ratio']);
+		$args['height'] = $args['width'] * $aspect_ratio[0] / $aspect_ratio[1];
+	}
 
-    if ( has_post_thumbnail( $id ) ) {
-      
-        if ( $use_registered_sizes ) {
-            return get_the_post_thumbnail( $id, $args['size'] );
-        } else {
-            return get_the_post_thumbnail( $id, array( $args['width'], $args['height'] ) );
-        }
+	if ( has_post_thumbnail( $id ) ) {
+	  
+		if ( $use_registered_sizes ) {
+			return get_the_post_thumbnail( $id, $args['size'] );
+		} else {
+			return get_the_post_thumbnail( $id, array( $args['width'], $args['height'] ) );
+		}
 
-    } elseif ( get_post_meta( $id, 'featured_video' ) ) {
+	} elseif ( get_post_meta( $id, 'featured_video' ) ) {
 
-        $data = get_post_meta( $id, 'featured_video', true );
-        
-        $media = '';
-        
-        if ( preg_match("/youtube\.com\/watch/i", $data) ) {
-  					list($domain, $video_id) = split("v=", $data);
-  					$video_id = esc_attr($video_id);	
-            $media .= '<iframe width=' . esc_attr( $args['width'] ) . ' height=' . esc_attr( $args['height'] ) . "src=\"http://www.youtube.com/embed/" . $video_id . "\" frameborder=\"0\" allowfullscreen></iframe>";
-    		} elseif ( preg_match("/vimeo\.com\/[0-9]+/i", $data) ) {
-  					list($domain, $video_id) = split(".com/", $data);
-  					$video_id = esc_attr($video_id);
-            $media .= "<iframe src=\"http://player.vimeo.com/video/" . $video_id . '?portrait=0" width="' . esc_attr( $args['width'] ) . '" height="' . $args['height'] . '"></iframe>';
-          
-        }
-        return $media;
-    }
-    
+		$data = get_post_meta( $id, 'featured_video', true );
+		
+		$media = '';
+		
+		if ( preg_match("/youtube\.com\/watch/i", $data) ) {
+					list($domain, $video_id) = split("v=", $data);
+					$video_id = esc_attr($video_id);	
+			$media .= '<iframe width=' . esc_attr( $args['width'] ) . ' height=' . esc_attr( $args['height'] ) . "src=\"http://www.youtube.com/embed/" . $video_id . "\" frameborder=\"0\" allowfullscreen></iframe>";
+			} elseif ( preg_match("/vimeo\.com\/[0-9]+/i", $data) ) {
+					list($domain, $video_id) = split(".com/", $data);
+					$video_id = esc_attr($video_id);
+			$media .= "<iframe src=\"http://player.vimeo.com/video/" . $video_id . '?portrait=0" width="' . esc_attr( $args['width'] ) . '" height="' . $args['height'] . '"></iframe>';
+		  
+		}
+		return $media;
+	}
+	
 }
 
 ?>
