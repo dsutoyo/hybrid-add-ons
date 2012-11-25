@@ -38,8 +38,6 @@ function remix_init() {
 	define( 'HYBRID_ALT_ADMIN_IMAGES', trailingslashit( HYBRID_URI ) . 'add-ons/assets/images' );
   
 	require_if_theme_supports( 'alt-theme-options', trailingslashit( HYBRID_ADDONS ) . 'options/theme-options.php' );
-  
-	require_if_theme_supports( 'orbit-slideshows', trailingslashit( HYBRID_ADDONS ) . 'extensions/orbit-slideshows.php' );
     
 	require_if_theme_supports( 'cycle-slideshows', trailingslashit( HYBRID_ADDONS ) . 'extensions/cycle-slideshows.php' );
     
@@ -99,77 +97,6 @@ function hybrid_get_option( $option = '' ) {
 		return $hybrid->settings[$option];
 	else
 		return wp_kses_stripslashes( $hybrid->settings[$option] );
-}
-
-function remix_get_featured_media( $id, $args = '' ) {
-	
-	$prefix = hybrid_get_prefix();
-	
-	$embed_defaults = wp_embed_defaults();
-	
-	$defaults = array(
-		'size' => '',
-		'width' => $embed_defaults['width'],
-		'height' => round($embed_defaults['width'] * 9 / 16),
-		'ratio' => '',
-	);
-	
-	$args = wp_parse_args( $args, $defaults );
-
-	$use_registered_sizes = false;
-
-	switch ( $args['size'] ) :
-		case 'thumbnail' :
-			$args['width'] = get_option( 'thumbnail_size_w' );
-			$args['height'] = get_option( 'thumbnail_size_h' );
-			$use_registered_sizes = true;
-			break;
-		case 'medium' :
-			$args['width'] = get_option( 'medium_size_w' );
-			$args['height'] = get_option( 'medium_size_h' );
-			$use_registered_sizes = true;
-			break;
-		case 'large' :
-			$args['width'] = get_option( 'large_size_w' );
-			$args['height'] = get_option( 'large_size_h' );
-			$use_registered_sizes = true;
-			break;
-		case '' :
-			break;
-	endswitch;
-	
-	if ( $args['ratio'] != '' ) {
-		$aspect_ratio = split('/', $args['ratio']);
-		$args['height'] = $args['width'] * $aspect_ratio[0] / $aspect_ratio[1];
-	}
-
-	if ( has_post_thumbnail( $id ) ) {
-	  
-		if ( $use_registered_sizes ) {
-			return get_the_post_thumbnail( $id, $args['size'] );
-		} else {
-			return get_the_post_thumbnail( $id, array( $args['width'], $args['height'] ) );
-		}
-
-	} elseif ( get_post_meta( $id, 'featured_video' ) ) {
-
-		$data = get_post_meta( $id, 'featured_video', true );
-		
-		$media = '';
-		
-		if ( preg_match("/youtube\.com\/watch/i", $data) ) {
-					list($domain, $video_id) = split("v=", $data);
-					$video_id = esc_attr($video_id);	
-			$media .= '<iframe width=' . esc_attr( $args['width'] ) . ' height=' . esc_attr( $args['height'] ) . "src=\"http://www.youtube.com/embed/" . $video_id . "\" frameborder=\"0\" allowfullscreen></iframe>";
-			} elseif ( preg_match("/vimeo\.com\/[0-9]+/i", $data) ) {
-					list($domain, $video_id) = split(".com/", $data);
-					$video_id = esc_attr($video_id);
-			$media .= "<iframe src=\"http://player.vimeo.com/video/" . $video_id . '?portrait=0" width="' . esc_attr( $args['width'] ) . '" height="' . $args['height'] . '"></iframe>';
-		  
-		}
-		return $media;
-	}
-	
 }
 
 ?>
