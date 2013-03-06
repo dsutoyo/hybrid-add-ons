@@ -18,28 +18,20 @@
  * to the Free Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
  *
  * @package Remix
- * @version 0.1.0
+ * @version 0.2.0
  * @author David Sutoyo
  * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
-// run actions to set up remix options and widgets 	
+// run actions to set up remix options and widgets
 add_action( 'after_setup_theme', 'remix_init', 14 );
 add_action( 'widgets_init', 'remix_register_widgets' );
 		
 function remix_init() {
-    /* Sets the path to the core framework extensions directory. */
-	define( 'HYBRID_ADDONS', trailingslashit( HYBRID_DIR ) . 'add-ons' );
-	
-	define( 'HYBRID_ALT_ADMIN_JS', trailingslashit( HYBRID_URI ) . 'add-ons/assets/javascripts' );
-	
-	define( 'HYBRID_ALT_ADMIN_CSS', trailingslashit( HYBRID_URI ) . 'add-ons/assets/stylesheets' );
-	
-	define( 'HYBRID_ALT_ADMIN_IMAGES', trailingslashit( HYBRID_URI ) . 'add-ons/assets/images' );
-  
-	require_if_theme_supports( 'alt-theme-options', trailingslashit( HYBRID_ADDONS ) . 'options/theme-options.php' );
-    
-	require_if_theme_supports( 'cycle-slideshows', trailingslashit( HYBRID_ADDONS ) . 'extensions/cycle-slideshows.php' );
+	/* Sets the path to the core framework extensions directory. */
+	define( 'HYBRID_ADDONS', get_template_directory() . '/includes' );
+
+	require_if_theme_supports( 'more-theme-options', trailingslashit( HYBRID_ADDONS ) . 'options/fields.php' );
     
 	require_if_theme_supports( 'cleaner-code', trailingslashit( HYBRID_ADDONS ) . 'functions/declutter.php' );
 
@@ -56,12 +48,10 @@ function remix_register_widgets() {
 		/* Load the core framework widget files. */
 		require_once( trailingslashit( HYBRID_ADDONS ) . 'classes/widget-blog.php' );
 		require_once( trailingslashit( HYBRID_ADDONS ) . 'classes/widget-flickr.php' );
-		require_once( trailingslashit( HYBRID_ADDONS ) . 'classes/widget-twitter.php' );
 
 		/* Register each of the core framework widgets. */
 		register_widget( 'Remix_Widget_Blog' );
 		register_widget( 'Remix_Widget_Flickr' );
-		register_widget( 'Remix_Widget_Twitter' );
 	endif;
 }
 
