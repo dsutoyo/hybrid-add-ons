@@ -28,6 +28,7 @@ add_action( 'after_setup_theme', 'remix_init', 14 );
 add_action( 'widgets_init', 'remix_register_widgets' );
 		
 function remix_init() {
+	//echo trailingslashit( HYBRID_ADDONS ) . 'functions/walker.php';
 	/* Sets the path to the core framework extensions directory. */
 	define( 'HYBRID_ADDONS', get_template_directory() . '/includes' );
 
@@ -40,6 +41,10 @@ function remix_init() {
 	
 	/* Load the post meta box if supported. */
 	require_if_theme_supports( 'hybrid-core-post-meta-box', trailingslashit( HYBRID_ADDONS ) . 'admin/post-meta-box.php' );
+
+	require_if_theme_supports( 'foundation-walker', trailingslashit( HYBRID_ADDONS ) . 'functions/menu.php' );
+
+	require_if_theme_supports( 'cleaner-head', trailingslashit( HYBRID_ADDONS ) . 'functions/clean.php' );
     
 }
 

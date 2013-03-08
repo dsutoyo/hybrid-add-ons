@@ -26,7 +26,7 @@ class Remix_Widget_Flickr extends WP_Widget {
 		$this->prefix = hybrid_get_prefix();
 
 		/* Set the widget textdomain. */
-		$this->textdomain = hybrid_get_textdomain();
+		$this->textdomain = hybrid_get_parent_textdomain();
 		
 		/* Widget settings. */
 		$widget_options = array( 
