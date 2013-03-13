@@ -37,6 +37,8 @@ class RemixWalker extends Walker_Nav_Menu {
 		$defaults = array(
 			'item_type' => 'li',
 			'in_top_bar' => false,
+			'divider' => false,
+			'divider_content' => ''
 		);
 		$this->nav_bar = apply_filters( 'req_nav_args', wp_parse_args( $nav_args, $defaults ) );
 	}
@@ -83,7 +85,11 @@ class RemixWalker extends Walker_Nav_Menu {
 		if ( $depth > 0 ) {
 			$output .= $indent . '<li id="menu-item-'. $item->ID . '"' . $value . $class_names .'>';
 		} else {
-			$output .= $indent . ( $this->nav_bar['in_top_bar'] == true ? '<li class="divider"></li>' : '' ) . '<' . $this->nav_bar['item_type'] . ' id="menu-item-'. $item->ID . '"' . $value . $class_names .'>';
+			if ( $this->nav_bar['divider'] == true ) {
+				$output .= $indent . ( $this->nav_bar['in_top_bar'] == true ? '<li class="divider">' . $this->nav_bar['divider_content'] . '</li>' : '' ) . '<' . $this->nav_bar['item_type'] . ' id="menu-item-'. $item->ID . '"' . $value . $class_names .'>';
+			} else {
+				$output .= $indent . '<' . $this->nav_bar['item_type'] . ' id="menu-item-'. $item->ID . '"' . $value . $class_names .'>';
+			}
 		}
 
 		$attributes  = ! empty( $item->attr_title ) ? ' title="'  . esc_attr( $item->attr_title ) .'"' : '';
