@@ -32,6 +32,8 @@ function remix_init() {
 	/* Sets the path to the core framework extensions directory. */
 	define( 'HYBRID_ADDONS', get_template_directory() . '/includes' );
 
+	require_once( trailingslashit( HYBRID_ADDONS ) . 'functions/numbers.php' );
+
 	require_if_theme_supports( 'more-theme-options', trailingslashit( HYBRID_ADDONS ) . 'options/fields.php' );
     
 	require_if_theme_supports( 'cleaner-code', trailingslashit( HYBRID_ADDONS ) . 'functions/declutter.php' );
