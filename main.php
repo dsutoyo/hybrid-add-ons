@@ -34,6 +34,8 @@ function remix_init() {
 
 	require_once( trailingslashit( HYBRID_ADDONS ) . 'functions/numbers.php' );
 
+	require_once( trailingslashit( HYBRID_ADDONS ) . 'functions/head.php' );
+
 	require_if_theme_supports( 'more-theme-options', trailingslashit( HYBRID_ADDONS ) . 'options/fields.php' );
     
 	require_if_theme_supports( 'cleaner-code', trailingslashit( HYBRID_ADDONS ) . 'functions/declutter.php' );
