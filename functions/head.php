@@ -4,8 +4,9 @@ function remix_favicon() {
 }
 
 function remix_get_favicon() {
+	$favicon = home_url() . '/favicon.png';
 
-	$output = '<link rel="shortcut icon" type="image/png" href="http://wordpress.dev/wp-content/themes/schema/asset/images/favicon.png">' . "\n";
+	$output = '<link rel="shortcut icon" type="image/png" href="' . $favicon . '">' . "\n";
 	echo apply_filters( 'remix_favicon', $output );
 }
 
