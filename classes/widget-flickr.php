@@ -17,9 +17,6 @@ class Hybrid_Addons_Widget_Flickr extends WP_Widget {
 	function Hybrid_Addons_Widget_Flickr() {
 		/* Set the widget prefix. */
 		$this->prefix = hybrid_get_prefix();
-
-		/* Set the widget textdomain. */
-		'hybrid-addons' = hybrid_get_parent_textdomain();
 		
 		/* Widget settings. */
 		$widget_options = array( 
