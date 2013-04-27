@@ -12,7 +12,7 @@ function hybrid_addons_options_media($var) {
       echo '</div>';
     }
     echo '<div class="element">';
-    echo '<a id="upload_' . $var . '" class="remix-media-upload" href="#">Upload</a>';
+    echo '<a id="upload_' . $var . '" class="hybrid-addon-media-upload" href="#">Upload</a>';
     if ( isset( $the_theme_options[$var] ) ) {
         echo '<input id="' . $prefix . '_theme_options[' . $var . ']" class="option_field" type="text" name="' . $prefix . '_theme_options[' . $var . ']" value="' . $the_theme_options[$var] . '" />';
     } else {

@@ -2,7 +2,7 @@ jQuery(document).ready(function () {
   
   jQuery("#options_tabs").tabs();
   
-  jQuery('.remix-media-upload').click(function() {
+  jQuery('.hybrid-addon-media-upload').click(function() {
       thefield = jQuery(this).attr('id');
       thefield = thefield.replace('upload_', '');
       formfield = jQuery('#evoke_theme_options\\[' + thefield + '\\]').attr('name');

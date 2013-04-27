@@ -202,7 +202,7 @@
   }
 
 /* Forms */
-.remix-media-upload {
+.hybrid-addon-media-upload {
     display: block;
     float: right;
     margin-right: 32px;
@@ -579,28 +579,28 @@ optgroup {
 }
 
 /* Help */
-.remix-help h4,
-.remix-help h5 {
+.hybrid-addon-help h4,
+.hybrid-addon-help h5 {
     margin: 0.67em 0;
 }
 
-.remix-help .code-options {
+.hybrid-addon-help .code-options {
     margin-left: 10px;
     margin-bottom: 0.67em;
     padding-bottom: 0.67em;
 }
 
-  .remix-help .code-options dt {
+  .hybrid-addon-help .code-options dt {
       font-weight: bold;
   }
 
-.remix-help pre {
+.hybrid-addon-help pre {
     background: #eeeeee;
     border: 1px solid #dddddd;
     padding: 10px;
 }
 
-.remix-help .code-list li {
+.hybrid-addon-help .code-list li {
     margin-bottom: 0.67em;
     padding-bottom: 0.67em;
 }

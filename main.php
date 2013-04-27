@@ -22,7 +22,7 @@
  * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
-// run actions to set up remix options and widgets
+// run actions to set up hybrid-addon options and widgets
 add_action( 'after_setup_theme', 'hybrid_addons_init', 14 );
 add_action( 'widgets_init', 'hybrid_addons_register_widgets' );
 		
