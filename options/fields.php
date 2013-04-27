@@ -1,6 +1,6 @@
 <?php
 
-function remix_textfield( $args ) { ?>
+function hybrid_addons_textfield( $args ) { ?>
 	<tr>
 		<th>
 			<label for="<?php echo hybrid_settings_field_id( $args['id'] ); ?>"><?php echo $args['label']; ?></label>
@@ -13,7 +13,7 @@ function remix_textfield( $args ) { ?>
 <?php
 }
 
-function remix_textarea( $args ) { ?>
+function hybrid_addons_textarea( $args ) { ?>
 	<tr>
 		<th>
 			<label for="<?php echo hybrid_settings_field_id( 'example_textarea' ); ?>"><?php _e( 'Example Textarea:', 'theme-folder-name' ); ?></label>

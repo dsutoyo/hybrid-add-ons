@@ -7,16 +7,16 @@
  */
 
 // Class cleanup
-add_filter( 'nav_menu_css_class', 'remix_nav_menu_css_class', 1, 1 );
-add_filter( 'nav_menu_item_id', 'remix_nav_menu_item_id', 1, 3 );
-//add_filter( 'walker_nav_menu_start_el', 'remix_walker_nav_menu_item_id', 1, 4 );
+add_filter( 'nav_menu_css_class', 'hybrid_addons_nav_menu_css_class', 1, 1 );
+add_filter( 'nav_menu_item_id', 'hybrid_addons_nav_menu_item_id', 1, 3 );
+//add_filter( 'walker_nav_menu_start_el', 'hybrid_addons_walker_nav_menu_item_id', 1, 4 );
 
 /*
  *
  * I just want these classes: menu-item, current-menu-item, and active
  *
  */
-function remix_nav_menu_css_class( $classes ) {
+function hybrid_addons_nav_menu_css_class( $classes ) {
 	$active_matches = 0;
 	$dropdown_matches = 0;
 	
@@ -48,12 +48,12 @@ function remix_nav_menu_css_class( $classes ) {
  * What's more useful than all those classes? An id that matches my menu item name!
  *
  */
-function remix_nav_menu_item_id( $id, $item, $args ) {
+function hybrid_addons_nav_menu_item_id( $id, $item, $args ) {
 	$id = 'menu-' . $item->post_name;
 	return $id;
 }
 
-function remix_walker_nav_menu_item_id( $item_output, $item, $depth, $args ) {
+function hybrid_addons_walker_nav_menu_item_id( $item_output, $item, $depth, $args ) {
 	print_r($item);
 }
 

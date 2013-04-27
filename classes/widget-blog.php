@@ -2,7 +2,7 @@
 /**
  * The Blog widget allows you to output the content of different post types
  *
- * @package Remix
+ * @package Hybrid Addons
  * @subpackage Classes
  */
 
@@ -10,9 +10,8 @@
  * Blog widget class.
  *
  * @since 0.1.0
- * @link http://themehybrid.com/themes/hybrid/widgets
  */
-class Remix_Widget_Blog extends WP_Widget {
+class Hybrid_Addons_Widget_Blog extends WP_Widget {
 
 	/**
 	 * Prefix for the widget.
@@ -30,7 +29,7 @@ class Remix_Widget_Blog extends WP_Widget {
 	 * Set up the widget's unique name, ID, class, description, and other options.
 	 * @since 0.1.0
 	 */
-	function Remix_Widget_Blog() {
+	function Hybrid_Addons_Widget_Blog() {
 
 		/* Set the widget prefix. */
 		$this->prefix = hybrid_get_prefix();

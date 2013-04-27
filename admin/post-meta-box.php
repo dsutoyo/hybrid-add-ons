@@ -3,7 +3,7 @@
 /**
  * Outputs a text input box with the given arguments for use with the post meta box.
  *
- * @package Remix
+ * @package Hybrid Addons
  * @since 0.1.0
  * @param array $args 
  * @param string|bool $value Custom field value.

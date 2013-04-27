@@ -4,7 +4,7 @@
  * A fallback when no navigation is selected by default, otherwise it throws some nasty errors in your face.
  * From required+ Foundation http://themes.required.ch and Reverie http://themefortress.com
  */
-function remix_menu_fallback() {
+function hybrid_addons_menu_fallback() {
 	echo '<div class="alert-box secondary">';
 	// Translators 1: Link to Menus, 2: Link to Customize
 	printf( __( 'Please assign a menu to the primary menu location under %1$s or %2$s the design.', 'reverie' ),
@@ -24,7 +24,7 @@ function remix_menu_fallback() {
  * Courtesy of Kriesi.at. http://www.kriesi.at/archives/improve-your-wordpress-navigation-menu-output
  * From required+ Foundation http://themes.required.ch and Reverie http://themefortress.com
  */
-class RemixWalker extends Walker_Nav_Menu {
+class Hybrid_Addons_Walker extends Walker_Nav_Menu {
 
 	/**
 	 * Specify the item type to allow different walkers

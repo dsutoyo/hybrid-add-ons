@@ -1,27 +1,27 @@
 <?php
 
-add_action( 'admin_menu', 'remix_admin_setup' );
+add_action( 'admin_menu', 'hybrid_addons_admin_setup' );
 
-function remix_admin_setup() {
+function hybrid_addons_admin_setup() {
 
 	/* Get the theme prefix. */
 	$prefix = hybrid_get_prefix();
 
 	/* Create a settings meta box only on the theme settings page. */
-	add_action( 'load-appearance_page_theme-settings', 'remix_settings_meta_boxes' );
+	add_action( 'load-appearance_page_theme-settings', 'hybrid_addons_settings_meta_boxes' );
 
 	/* Add a filter to validate/sanitize your settings. */
-	add_filter( "sanitize_option_{$prefix}_theme_settings", 'remix_validate_settings' );
+	add_filter( "sanitize_option_{$prefix}_theme_settings", 'hybrid_addons_validate_settings' );
 }
 
 /* Adds custom meta boxes to the theme settings page. */
-function remix_settings_meta_boxes() {
+function hybrid_addons_settings_meta_boxes() {
 
 	/* Add a custom meta box. */
 	add_meta_box(
 		'example-theme-meta-box',			// Name/ID
 		__( 'Example Settings', 'theme-folder-name' ),	// Label
-		'remix_meta_box',			// Callback function
+		'hybrid_addons_meta_box',			// Callback function
 		'appearance_page_theme-settings',		// Page to load on, leave as is
 		'normal',					// Which meta box holder?
 		'high'					// High/low within the meta box holder
@@ -31,7 +31,7 @@ function remix_settings_meta_boxes() {
 }
 
 /* Function for displaying the meta box. */
-function remix_meta_box() { ?>
+function hybrid_addons_meta_box() { ?>
 
 	<table class="form-table">
 		<!-- Add custom form elements below here. -->
@@ -63,7 +63,7 @@ function remix_meta_box() { ?>
 }
 
 /* Validates theme settings. */
-function remix_validate_settings( $input ) {
+function hybrid_addons_validate_settings( $input ) {
 
 	/* Validate and/or sanitize the textarea. */
 	$input['example_textarea'] = wp_filter_nohtml_kses( $input['example_textarea'] );

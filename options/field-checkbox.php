@@ -1,6 +1,6 @@
 <?php
 
-function remix_options_checkbox($var, $label) {
+function hybrid_addons_options_checkbox($var, $label) {
     $prefix = hybrid_get_prefix();
     $the_theme_options = get_option($prefix.'_theme_options');
 

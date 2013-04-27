@@ -2,10 +2,10 @@
 /**
  * Flickr Widget
  *
- * @package Remix
+ * @package Hybrid Addons
  * @since 0.1.0
  */
-class Remix_Widget_Flickr extends WP_Widget {
+class Hybrid_Addons_Widget_Flickr extends WP_Widget {
 	
 	/**
 	 * Prefix for the widget.
@@ -21,7 +21,7 @@ class Remix_Widget_Flickr extends WP_Widget {
 
 	
 	/* Widget setup */
-	function Remix_Widget_Flickr() {
+	function Hybrid_Addons_Widget_Flickr() {
 		/* Set the widget prefix. */
 		$this->prefix = hybrid_get_prefix();
 

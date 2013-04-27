@@ -1,6 +1,6 @@
 <?php
 
-function remix_options_colorpicker($var) {
+function hybrid_addons_options_colorpicker($var) {
     $prefix = hybrid_get_prefix();
     $the_theme_options = get_option($prefix.'_theme_options'); ?>
     <script type="text/javascript">
@@ -23,7 +23,7 @@ function remix_options_colorpicker($var) {
       });
     });
     </script>
-    <?php remix_options_text_field( $var ); ?>
+    <?php hybrid_addons_options_text_field( $var ); ?>
     <div id="cp_<?php echo $prefix . "_theme_options[" . $var . "]" ?>" class="cp_box">
       <div style="background:<?php echo $the_theme_options[$var] ?>;border-color:<?php echo $the_theme_options[$var] ?>"> 
       </div>

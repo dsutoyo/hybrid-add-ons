@@ -1,6 +1,6 @@
 <?php
 
-function remix_options_textarea($var) {
+function hybrid_addons_options_textarea($var) {
     $prefix = hybrid_get_prefix();
     $the_theme_options = get_option($prefix.'_theme_options');
     if ( isset( $the_theme_options[$var] ) ) {

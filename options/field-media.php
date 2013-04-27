@@ -1,14 +1,14 @@
 <?php
 
-function remix_options_media($var) {
+function hybrid_addons_options_media($var) {
     $prefix = hybrid_get_prefix();
     $the_theme_options = get_option($prefix.'_theme_options');
     if ( isset( $the_theme_options[$var] ) && !empty( $the_theme_options[$var] )) {
       echo '<img src="' . $the_theme_options[$var] . '" />';
       echo '<p><small><em>Preview may be smaller than actual image size</em></small></p>';
       echo '<div class="remove_image clearfix">';
-      remix_options_checkbox( 'delete_' . $var, 'Remove image' );
-      //remix_options_label_for( 'delete_' . $var, 'Remove image', 'option_checkbox_label' );
+      hybrid_addons_options_checkbox( 'delete_' . $var, 'Remove image' );
+      //hybrid_addons_options_label_for( 'delete_' . $var, 'Remove image', 'option_checkbox_label' );
       echo '</div>';
     }
     echo '<div class="element">';

@@ -1,6 +1,6 @@
 <?php
   
-function remix_options_select($var, $opt_array) {
+function hybrid_addons_options_select($var, $opt_array) {
     $prefix = hybrid_get_prefix();
     $the_theme_options = get_option($prefix.'_theme_options');
 

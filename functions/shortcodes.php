@@ -1,7 +1,7 @@
 <?php
 
 /* Register shortcodes. */
-add_action( 'init', 'remix_add_shortcodes' );
+add_action( 'init', 'hybrid_addons_add_shortcodes' );
 
 /**
  * Creates new shortcodes for use in any shortcode-ready area.  This function uses the add_shortcode() 
@@ -12,13 +12,13 @@ add_action( 'init', 'remix_add_shortcodes' );
  * @uses add_filter() to allow shortcodes in widgets.
  * @link http://codex.wordpress.org/Shortcode_API
  */
-function remix_add_shortcodes() {
+function hybrid_addons_add_shortcodes() {
   
-	add_shortcode( 'sidebar', 'remix_get_sidebar' );
-	add_shortcode( 'widget','remix_widget' );
+	add_shortcode( 'sidebar', 'hybrid_addons_get_sidebar' );
+	add_shortcode( 'widget','hybrid_addons_widget' );
 
-	add_shortcode( 'site-title','remix_site_title' );
-	add_shortcode( 'rss','remix_subscribe_rss' );
+	add_shortcode( 'site-title','hybrid_addons_site_title' );
+	add_shortcode( 'rss','hybrid_addons_subscribe_rss' );
 	
 	// Allow [SHORTCODES] in Widgets
 	add_filter( 'widget_text', 'do_shortcode' );
@@ -30,7 +30,7 @@ function remix_add_shortcodes() {
  * @since 0.1.0
  * @uses get_bloginfo() Gets information about the install.
  */
-function remix_site_title(){
+function hybrid_addons_site_title(){
     return '<span class="site-title">' . get_bloginfo('name') . '</span>';
 }
 
@@ -40,7 +40,7 @@ function remix_site_title(){
  * @since 0.1.0
  * @uses get_bloginfo() Gets information about the install.
  */
-function remix_subscribe_rss( $atts ){
+function hybrid_addons_subscribe_rss( $atts ){
     extract(shortcode_atts(array(
         'text' => __( 'RSS Feed', hybrid_get_textdomain() ),
     ), $atts));
@@ -54,7 +54,7 @@ function remix_subscribe_rss( $atts ){
  * @since 0.1.0
  * @uses the_widget() Displays a widget
  */
-function remix_widget( $atts ) {    
+function hybrid_addons_widget( $atts ) {    
     global $wp_widget_factory;
 
     extract(shortcode_atts(array(
@@ -108,7 +108,7 @@ function remix_widget( $atts ) {
  * @since 0.1.0
  * @uses the_widget() Displays a widget
  */
-function remix_get_widget( $widget_name, $instance, $id ) {
+function hybrid_addons_get_widget( $widget_name, $instance, $id ) {
     
     global $wp_widget_factory;
     
@@ -152,9 +152,9 @@ function remix_get_widget( $widget_name, $instance, $id ) {
  *
  * @since 0.1.0
  * @uses wp_get_sidebars_widgets() Retrieve full list of sidebars and their widgets.
- * @uses remix_get_widget_settings() Returns settings of a widget instance
+ * @uses hybrid_addons_get_widget_settings() Returns settings of a widget instance
  */
-function remix_get_sidebar( $atts ) {
+function hybrid_addons_get_sidebar( $atts ) {
     global $wp_registered_widgets;
     
     extract(shortcode_atts(array(
@@ -176,7 +176,7 @@ function remix_get_sidebar( $atts ) {
 
 			$widget_name = get_class($the_widget);
 			$id = $wp_registered_widgets[$widget]['params'][0]['number'];
-			$instance_array = remix_get_widget_settings($the_widget);
+			$instance_array = hybrid_addons_get_widget_settings($the_widget);
 
 			$instance = array();
 
@@ -185,7 +185,7 @@ function remix_get_sidebar( $atts ) {
 			}
 			$instance_str = implode('&', $instance);
 
-			$output .= remix_get_widget( $widget_name, $instance_array[$id], $id );
+			$output .= hybrid_addons_get_widget( $widget_name, $instance_array[$id], $id );
         }
     }
     
@@ -197,7 +197,7 @@ function remix_get_sidebar( $atts ) {
  *
  * @since 0.1.0
  */
-function remix_get_widget_settings($widget) {
+function hybrid_addons_get_widget_settings($widget) {
 	$settings = get_option($widget->option_name);
 
 	if ( false === $settings && isset($widget->alt_option_name) )

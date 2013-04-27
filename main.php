@@ -1,11 +1,10 @@
 <?php
 /**
- * Remix - An add-on library for the Hybrid WordPress theme development framework.
+ * Hybrid Addons - An add-on library for the Hybrid WordPress theme development framework.
  *
- * Remix is a collection of scripts intended for use with the Hybrid framework. Although it is
- * used with Hybrid, it is not affiliated in any way with Hybrid or Justin Tadlock. Remix provides some
+ * Hybrid Addons is a collection of scripts intended for use with the Hybrid framework. Although it is
+ * used with Hybrid, it is not affiliated in any way with Hybrid or Justin Tadlock. Hybrid Addons provides some
  * slideshow scripts, extra widgets, as well as an alternative interface/back-end for theme settings.
- * It also makes use of WPAlchemy to generate extra meta boxes.
  *
  * This program is free software; you can redistribute it and/or modify it under the terms of the GNU 
  * General Public License version 2, as published by the Free Software Foundation.  You may NOT assume 
@@ -17,17 +16,17 @@
  * You should have received a copy of the GNU General Public License along with this program; if not, write 
  * to the Free Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
  *
- * @package Remix
- * @version 0.2.0
+ * @package Hybrid Addons
+ * @version 0.3.0
  * @author David Sutoyo
  * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
 // run actions to set up remix options and widgets
-add_action( 'after_setup_theme', 'remix_init', 14 );
-add_action( 'widgets_init', 'remix_register_widgets' );
+add_action( 'after_setup_theme', 'hybrid_addons_init', 14 );
+add_action( 'widgets_init', 'hybrid_addons_register_widgets' );
 		
-function remix_init() {
+function hybrid_addons_init() {
 	//echo trailingslashit( HYBRID_ADDONS ) . 'functions/walker.php';
 	/* Sets the path to the core framework extensions directory. */
 	define( 'HYBRID_ADDONS', get_template_directory() . '/includes' );
@@ -52,15 +51,22 @@ function remix_init() {
     
 }
 
-function remix_register_widgets() {
+/**
+ * Registers the Hybrid Addons Widgets.
+ *
+ * @since 0.1.0
+ * @uses register_widget Registers the widgets
+ * @return void.
+ */
+function hybrid_addons_register_widgets() {
 	if ( current_theme_supports( 'hybrid-core-widgets' ) ) :
 		/* Load the core framework widget files. */
 		require_once( trailingslashit( HYBRID_ADDONS ) . 'classes/widget-blog.php' );
 		require_once( trailingslashit( HYBRID_ADDONS ) . 'classes/widget-flickr.php' );
 
 		/* Register each of the core framework widgets. */
-		register_widget( 'Remix_Widget_Blog' );
-		register_widget( 'Remix_Widget_Flickr' );
+		register_widget( 'Hybrid_Addons_Widget_Blog' );
+		register_widget( 'Hybrid_Addons_Widget_Flickr' );
 	endif;
 }
 
@@ -68,7 +74,7 @@ function remix_register_widgets() {
 /**
  * Loads the theme options once and allows the input of the specific field the user would 
  * like to show. Theme settings are added with 'autoload' set to 'yes', so the settings are 
- * only loaded once on each page load. USE ONLY WITH THE REMIX THEME OPTIONS ADD-ON.
+ * only loaded once on each page load. USE ONLY WITH THE HYBRID ADDON THEME OPTIONS.
  *
  * @since 0.1.0
  * @uses get_option() Gets an option from the database.
