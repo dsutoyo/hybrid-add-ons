@@ -42,10 +42,10 @@ function hybrid_addons_site_title(){
  */
 function hybrid_addons_subscribe_rss( $atts ){
     extract(shortcode_atts(array(
-        'text' => __( 'RSS Feed', hybrid_get_textdomain() ),
+        'text' => __( 'RSS Feed', 'hybrid-addons' ),
     ), $atts));
     
-    return '<a class="rss-subscribe" href="'. get_bloginfo('rss2_url') .'" title="'. __('RSS Feeds', hybrid_get_textdomain()) .'">'. $text .'</a>';
+    return '<a class="rss-subscribe" href="'. get_bloginfo('rss2_url') .'" title="'. __('RSS Feeds', 'hybrid-addons' ) .'">'. $text .'</a>';
 }
 
 /**

@@ -20,12 +20,6 @@ class Hybrid_Addons_Widget_Blog extends WP_Widget {
 	var $prefix;
 
 	/**
-	 * Textdomain for the widget.
-	 * @since 0.1.0
-	 */
-	var $textdomain;
-
-	/**
 	 * Set up the widget's unique name, ID, class, description, and other options.
 	 * @since 0.1.0
 	 */
@@ -34,13 +28,10 @@ class Hybrid_Addons_Widget_Blog extends WP_Widget {
 		/* Set the widget prefix. */
 		$this->prefix = hybrid_get_prefix();
 
-		/* Set the widget textdomain. */
-		$this->textdomain = hybrid_get_parent_textdomain();
-
 		/* Set up the widget options. */
 		$widget_options = array(
 			'classname' => 'blog',
-			'description' => esc_html__( 'An simple widget that allows you to output the content of different post types.', $this->textdomain )
+			'description' => esc_html__( 'An simple widget that allows you to output the content of different post types.', 'hybrid-addons' )
 		);
 
 		/* Set up the widget control options. */
@@ -49,7 +40,7 @@ class Hybrid_Addons_Widget_Blog extends WP_Widget {
 		);
 
 		/* Create the widget. */
-		$this->WP_Widget( "{$this->prefix}-blog", esc_attr__( 'Blog', $this->textdomain ), $widget_options, $control_options );
+		$this->WP_Widget( "{$this->prefix}-blog", esc_attr__( 'Blog', 'hybrid-addons' ), $widget_options, $control_options );
 	}
 
 	/**
@@ -134,8 +125,8 @@ class Hybrid_Addons_Widget_Blog extends WP_Widget {
 
 		/* Set up some default widget settings. */
 		$defaults = array( 
-			'title' => __('Recent Posts', $this->textdomain),
-			'posts' => __('5', $this->textdomain),
+			'title' => __('Recent Posts', 'hybrid-addons'),
+			'posts' => __('5', 'hybrid-addons'),
 			'post_type' => 'post',
 			'show_content' => 'excerpt',
 			'show_date' => false
@@ -143,11 +134,11 @@ class Hybrid_Addons_Widget_Blog extends WP_Widget {
 		$instance = wp_parse_args( (array) $instance, $defaults );
 
 		$post_types = get_post_types( array( 'public' => true ), 'objects' );
-		$content_types = array( 'none' => esc_attr__( 'Title only', $this->textdomain ), 'excerpt' => esc_attr__( 'Excerpt only', $this->textdomain ), 'content' => esc_attr__( 'Full content', $this->textdomain ) );
+		$content_types = array( 'none' => esc_attr__( 'Title only', 'hybrid-addons' ), 'excerpt' => esc_attr__( 'Excerpt only', 'hybrid-addons' ), 'content' => esc_attr__( 'Full content', 'hybrid-addons' ) );
 		?>
 
 		<p>
-			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e('Title:', $this->textdomain); ?></label>
+			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e('Title:', 'hybrid-addons'); ?></label>
 			<input id="<?php echo $this->get_field_id( 'title' ); ?>" type="text" class="widefat" name="<?php echo $this->get_field_name( 'title' ); ?>" value="<?php echo $instance['title']; ?>" />
 		</p>
 		
@@ -162,7 +153,7 @@ class Hybrid_Addons_Widget_Blog extends WP_Widget {
 		</p>
 
 		<p>
-			<label for="<?php echo $this->get_field_id( 'posts' ); ?>"><?php _e('Number of Posts:', $this->textdomain); ?></label>
+			<label for="<?php echo $this->get_field_id( 'posts' ); ?>"><?php _e('Number of Posts:', 'hybrid-addons'); ?></label>
 			<input id="<?php echo $this->get_field_id( 'posts' ); ?>" type="text" class="widefat" name="<?php echo $this->get_field_name( 'posts' ); ?>" value="<?php echo $instance['posts']; ?>" />
 		</p>
 
@@ -178,7 +169,7 @@ class Hybrid_Addons_Widget_Blog extends WP_Widget {
 
 		<p>
 			<label for="<?php echo $this->get_field_id( 'show_date' ); ?>">
-				<input type="checkbox" <?php checked( $instance['show_date'], true ); ?> id="<?php echo $this->get_field_id( 'show_date' ); ?>" name="<?php echo $this->get_field_name( 'show_date' ); ?>" /> <?php _e( 'Show date?', $this->textdomain ); ?></label>
+				<input type="checkbox" <?php checked( $instance['show_date'], true ); ?> id="<?php echo $this->get_field_id( 'show_date' ); ?>" name="<?php echo $this->get_field_name( 'show_date' ); ?>" /> <?php _e( 'Show date?', 'hybrid-addons' ); ?></label>
 		</p>
 
 	<?php
