@@ -28,8 +28,12 @@ add_action( 'widgets_init', 'hybrid_addons_register_widgets' );
 		
 function hybrid_addons_init() {
 	//echo trailingslashit( HYBRID_ADDONS ) . 'functions/walker.php';
-	/* Sets the path to the core framework extensions directory. */
+
+	/* Sets the path to the addons directory. */
 	define( 'HYBRID_ADDONS', get_template_directory() . '/includes' );
+
+	/* Sets the path to the addons directory URI. */
+	define( 'HYBRID_ADDONS_URI', trailingslashit( THEME_URI ) . basename( dirname( __FILE__ ) ) );
 
 	require_once( trailingslashit( HYBRID_ADDONS ) . 'functions/numbers.php' );
 
@@ -69,7 +73,6 @@ function hybrid_addons_register_widgets() {
 		register_widget( 'Hybrid_Addons_Widget_Flickr' );
 	endif;
 }
-
 
 /**
  * Loads the theme options once and allows the input of the specific field the user would 

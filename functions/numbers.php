@@ -5,7 +5,12 @@ You can use this freely and modify it however you want.
 */
 function convertNumber($num)
 {
-	list($num, $dec) = explode(".", $num);
+
+	if ( is_int($num) ) {
+		$dec = 0;
+	} else {
+		list($num, $dec) = explode(".", $num);
+	}
 
 	$output = "";
 
