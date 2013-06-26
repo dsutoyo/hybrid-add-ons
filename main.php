@@ -17,7 +17,7 @@
  * to the Free Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
  *
  * @package Hybrid Addons
- * @version 0.3.0
+ * @version 0.3.5
  * @author David Sutoyo
  * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
