@@ -87,71 +87,71 @@ function hybrid_addons_register_widgets() {
  */
 function hybrid_addons_enqueue_scripts() {
 	// ===== Modernizr
-	/*wp_enqueue_script( 'modernizr', HYBRID_ADDONS_URI . 'foundation/js/vendor/custom.modernizr.js', '', FOUNDATION_VERSION );*/
+	/*wp_enqueue_script( 'modernizr', HYBRID_ADDONS_URI . '/foundation/js/vendor/custom.modernizr.js', '', FOUNDATION_VERSION );*/
 
 	// ===== Foundation
 	if ( current_theme_supports( 'foundation-base' ) ) {
-		wp_enqueue_script( 'foundation', HYBRID_ADDONS_URI . 'foundation/js/foundation/foundation.js', 'jquery', FOUNDATION_VERSION, true);
+		wp_enqueue_script( 'foundation', HYBRID_ADDONS_URI . '/foundation/js/foundation/foundation.js', 'jquery', FOUNDATION_VERSION, true);
 	}
 
 	// ===== Foundation Alerts
 	if ( current_theme_supports( 'foundation-alerts' ) ) {
-		wp_enqueue_script( 'foundation-alerts', HYBRID_ADDONS_URI . 'foundation/js/foundation/foundation.alerts.js', '', FOUNDATION_VERSION, true);
+		wp_enqueue_script( 'foundation-alerts', HYBRID_ADDONS_URI . '/foundation/js/foundation/foundation.alerts.js', '', FOUNDATION_VERSION, true);
 	}
 
 	// ===== Foundation Clearing
 	if ( current_theme_supports( 'foundation-clearing' ) ) {
-		wp_enqueue_script( 'foundation-clearing', HYBRID_ADDONS_URI . 'foundation/js/foundation/foundation.clearing.js', '', FOUNDATION_VERSION, true);
+		wp_enqueue_script( 'foundation-clearing', HYBRID_ADDONS_URI . '/foundation/js/foundation/foundation.clearing.js', '', FOUNDATION_VERSION, true);
 	}
 
 	// ===== Foundation Cookies
 	if ( current_theme_supports( 'foundation-cookie' ) ) {
-		wp_enqueue_script( 'foundation-cookie', HYBRID_ADDONS_URI . 'foundation/js/foundation/foundation.cookie.js', 'jquery', FOUNDATION_VERSION, true);
+		wp_enqueue_script( 'foundation-cookie', HYBRID_ADDONS_URI . '/foundation/js/foundation/foundation.cookie.js', 'jquery', FOUNDATION_VERSION, true);
 	}
 
 	// ===== Foundation Dropdown
 	if ( current_theme_supports( 'foundation-dropdown' ) ) {
-		wp_enqueue_script( 'foundation-dropdown', HYBRID_ADDONS_URI . 'foundation/js/foundation/foundation.dropdown.js', '', FOUNDATION_VERSION, true);
+		wp_enqueue_script( 'foundation-dropdown', HYBRID_ADDONS_URI . '/foundation/js/foundation/foundation.dropdown.js', '', FOUNDATION_VERSION, true);
 	}
 
 	// ===== Foundation Forms
 	if ( current_theme_supports( 'foundation-forms' ) ) {
-		wp_enqueue_script( 'foundation-forms', HYBRID_ADDONS_URI . 'foundation/js/foundation/foundation.forms.js', 'jquery', FOUNDATION_VERSION, true);
+		wp_enqueue_script( 'foundation-forms', HYBRID_ADDONS_URI . '/foundation/js/foundation/foundation.forms.js', 'jquery', FOUNDATION_VERSION, true);
 	}
 
 	// ===== Foundation Joyride
 	if ( current_theme_supports( 'foundation-joyride' ) ) {
-		wp_enqueue_script( 'foundation-joyride', HYBRID_ADDONS_URI . 'foundation/js/foundation/foundation.joyride.js', 'jquery', FOUNDATION_VERSION, true);
+		wp_enqueue_script( 'foundation-joyride', HYBRID_ADDONS_URI . '/foundation/js/foundation/foundation.joyride.js', 'jquery', FOUNDATION_VERSION, true);
 	}
 
 	// ===== Foundation Magellan
 	if ( current_theme_supports( 'foundation-magellan' ) ) {
-		wp_enqueue_script( 'foundation-magellan', HYBRID_ADDONS_URI . 'foundation/js/foundation/foundation.magellan.js', 'jquery', FOUNDATION_VERSION, true);
+		wp_enqueue_script( 'foundation-magellan', HYBRID_ADDONS_URI . '/foundation/js/foundation/foundation.magellan.js', 'jquery', FOUNDATION_VERSION, true);
 	}
 
 	// ===== Foundation Orbit
 	if ( current_theme_supports( 'foundation-orbit' ) ) {
-		wp_enqueue_script( 'foundation-orbit', HYBRID_ADDONS_URI . 'foundation/js/foundation/foundation.orbit.js', 'jquery', FOUNDATION_VERSION, true);
+		wp_enqueue_script( 'foundation-orbit', HYBRID_ADDONS_URI . '/foundation/js/foundation/foundation.orbit.js', 'jquery', FOUNDATION_VERSION, true);
 	}
 
 	// ===== Foundation Reveal
 	if ( current_theme_supports( 'foundation-reveal' ) ) {
-		wp_enqueue_script( 'foundation-reveal', HYBRID_ADDONS_URI . 'foundation/js/foundation/foundation.reveal.js', '', FOUNDATION_VERSION, true);
+		wp_enqueue_script( 'foundation-reveal', HYBRID_ADDONS_URI . '/foundation/js/foundation/foundation.reveal.js', '', FOUNDATION_VERSION, true);
 	}
 
 	// ===== Foundation Section
 	if ( current_theme_supports( 'foundation-section' ) ) {
-		wp_enqueue_script( 'foundation-section', HYBRID_ADDONS_URI . 'foundation/js/foundation/foundation.section.js', '', FOUNDATION_VERSION, true);
+		wp_enqueue_script( 'foundation-section', HYBRID_ADDONS_URI . '/foundation/js/foundation/foundation.section.js', '', FOUNDATION_VERSION, true);
 	}
 
 	// ===== Foundation Tooltips
 	if ( current_theme_supports( 'foundation-tooltips' ) ) {
-		wp_enqueue_script( 'foundation-tooltips', HYBRID_ADDONS_URI . 'foundation/js/foundation/foundation.tooltips.js', '', FOUNDATION_VERSION, true);
+		wp_enqueue_script( 'foundation-tooltips', HYBRID_ADDONS_URI . '/foundation/js/foundation/foundation.tooltips.js', '', FOUNDATION_VERSION, true);
 	}
 
 	// ===== Foundation Topbar
 	if ( current_theme_supports( 'foundation-topbar' ) ) {
-		wp_enqueue_script( 'foundation-topbar', HYBRID_ADDONS_URI . 'foundation/js/foundation/foundation.topbar.js', '', FOUNDATION_VERSION, true);
+		wp_enqueue_script( 'foundation-topbar', HYBRID_ADDONS_URI . '/foundation/js/foundation/foundation.topbar.js', '', FOUNDATION_VERSION, true);
 	}
 }
 
