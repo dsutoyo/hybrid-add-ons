@@ -1,4 +1,11 @@
 <?php
+
+/**
+ * Simple favicon code
+ *
+ * @since 0.1.1
+ */
+
 function hybrid_addons_favicon() {
 	echo hybrid_addons_get_favicon();
 }
