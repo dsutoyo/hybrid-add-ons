@@ -52,6 +52,8 @@ function hybrid_addons_init() {
 	require_if_theme_supports( 'foundation-walker', trailingslashit( HYBRID_ADDONS ) . 'functions/menu.php' );
 
 	require_if_theme_supports( 'cleaner-head', trailingslashit( HYBRID_ADDONS ) . 'functions/clean.php' );
+
+	require_if_theme_supports( 'header-elements', trailingslashit( HYBRID_ADDONS ) . 'admin/admin.php' );
     
 }
 
