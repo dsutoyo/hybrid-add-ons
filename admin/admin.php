@@ -1,6 +1,5 @@
 <?php
 
-//add_action( 'init', array( &$this, 'register_post_types' ) );
 add_action( 'add_meta_boxes', 'hybrid_addons_add_meta_box', 10, 2 );
 
 add_action( 'save_post', 'hybrid_addons_save_header_element_meta_box', 10, 2 );
@@ -10,6 +9,19 @@ add_action( 'edit_attachment', 'hybrid_addons_save_header_element_meta_box' );
 add_action( 'save_post', 'hybrid_addons_save_custom_element_meta_box', 10, 2 );
 add_action( 'add_attachment', 'hybrid_addons_save_custom_element_meta_box' );
 add_action( 'edit_attachment', 'hybrid_addons_save_custom_element_meta_box' );
+
+/**
+ * Returns the type of custom header element. Returns false if it is not defined.
+ *
+ * @since  0.1.0
+ * @access public
+ * @return void
+ */
+function get_custom_header_element() {
+	if ( current_theme_supports( 'header-elements' ) && get_post_meta( get_the_ID(), 'hybrid_addons_header_element', true ) )
+		return get_post_meta( get_the_ID(), 'hybrid_addons_header_element', true );
+	return false;
+}
 
 /**
  * Adds the sermon metadata box.
@@ -75,8 +87,10 @@ function hybrid_addons_display_header_element_meta_box( $post ) {
 	?>
 
 	<p>
-		<label for="hybrid-addons-header-element"><?php _e( 'Select Header Element', 'hybrid-addons' ); ?></label>
-		<br />
+		<label for="hybrid-addons-header-element"><strong><?php _e( 'Select Header Element', 'hybrid-addons' ); ?></strong></label>
+	</p>
+
+	<p>
 		<select name="hybrid-addons-header-element" id="hybrid-addons-header-element" class="widefat">
 			<?php foreach ( $select_options as $key => $value ) { ?>
 				<option value="<?php echo esc_attr( $value ); ?>" <?php selected( esc_attr( get_post_meta( $post->ID, 'hybrid_addons_header_element', true ) ), esc_attr( $value ) ); ?>><?php echo esc_html( $key ); ?></option>
@@ -92,8 +106,9 @@ function hybrid_addons_display_custom_element_meta_box( $post ) {
 
 	?>
 	<p>
-		<label for="hybrid-addons-custom-element"><?php _e( 'Custom Header HTML', 'hybrid-addons' ); ?></label>
-		<br />
+		<label for="hybrid-addons-custom-element"><strong><?php _e( 'Custom Header HTML', 'hybrid-addons' ); ?></strong></label>
+	</p>
+	<p>
 		<textarea class="textarea" rows="8" cols="40" name="hybrid-addons-custom-element" id="hybrid-addons-custom-element"><?php echo esc_attr( get_post_meta( $post->ID, 'hybrid_addons_custom_element', true ) ); ?></textarea>
 	</p>
 	<p>Description</p>
