@@ -17,9 +17,11 @@ add_action( 'edit_attachment', 'hybrid_addons_save_custom_element_meta_box' );
  * @access public
  * @return void
  */
-function get_custom_header_element() {
-	if ( current_theme_supports( 'header-elements' ) && get_post_meta( get_the_ID(), 'hybrid_addons_header_element', true ) )
-		return get_post_meta( get_the_ID(), 'hybrid_addons_header_element', true );
+function hybrid_addons_get_custom_header() {
+	$element = get_post_meta( get_the_ID(), 'hybrid_addons_header_element', true );
+
+	if ( current_theme_supports( 'header-elements' ) && $element )
+		return $element;
 	return false;
 }
 
