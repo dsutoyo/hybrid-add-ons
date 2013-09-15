@@ -13,7 +13,7 @@ add_action( 'edit_attachment', 'hybrid_addons_save_custom_element_meta_box' );
 /**
  * Returns the type of custom header element. Returns false if it is not defined.
  *
- * @since  0.1.0
+ * @since  0.3.5
  * @access public
  * @return void
  */
@@ -28,7 +28,7 @@ function hybrid_addons_get_custom_header() {
 /**
  * Adds the sermon metadata box.
  *
- * @since  0.1.0
+ * @since  0.3.5
  * @access public
  * @return void
  */
@@ -72,7 +72,7 @@ function hybrid_addons_add_meta_box( $post_type, $post ) {
 /**
  * Display the header element metadata box.
  *
- * @since  0.1.0
+ * @since  0.3.5
  * @access public
  * @return void
  */
@@ -102,6 +102,13 @@ function hybrid_addons_display_header_element_meta_box( $post ) {
 <?php
 }
 
+/**
+ * Display the custom element metabox
+ *
+ * @since  0.3.5
+ * @access public
+ * @return void
+ */
 function hybrid_addons_display_custom_element_meta_box( $post ) {
 
 	wp_nonce_field( basename( __FILE__ ), 'hybrid-addons-custom-element-nonce' );
@@ -120,7 +127,7 @@ function hybrid_addons_display_custom_element_meta_box( $post ) {
 /**
  * Save the header element metadata.
  *
- * @since  0.1.0
+ * @since  0.3.5
  * @access public
  * @return void
  */

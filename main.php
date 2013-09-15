@@ -27,34 +27,28 @@ add_action( 'after_setup_theme', 'hybrid_addons_init', 14 );
 add_action( 'widgets_init', 'hybrid_addons_register_widgets' );
 		
 function hybrid_addons_init() {
-	//echo trailingslashit( HYBRID_ADDONS ) . 'functions/walker.php';
-
 	/* Sets the path to the addons directory. */
 	define( 'HYBRID_ADDONS', get_template_directory() . '/includes' );
 
 	/* Sets the path to the addons directory URI. */
 	define( 'HYBRID_ADDONS_URI', trailingslashit( THEME_URI ) . basename( dirname( __FILE__ ) ) );
 
-	require_once( trailingslashit( HYBRID_ADDONS ) . 'functions/numbers.php' );
-
 	require_once( trailingslashit( HYBRID_ADDONS ) . 'functions/head.php' );
-
-	require_if_theme_supports( 'more-theme-options', trailingslashit( HYBRID_ADDONS ) . 'options/fields.php' );
     
 	require_if_theme_supports( 'cleaner-code', trailingslashit( HYBRID_ADDONS ) . 'functions/declutter.php' );
 
-    /* Load the shortcodes if supported. */
+    /* Add more shortcodes to Hybrid if supported. */
 	require_if_theme_supports( 'hybrid-core-shortcodes', trailingslashit( HYBRID_ADDONS ) . 'functions/shortcodes.php' );
 	
-	/* Load the post meta box if supported. */
-	require_if_theme_supports( 'hybrid-core-post-meta-box', trailingslashit( HYBRID_ADDONS ) . 'admin/post-meta-box.php' );
 
 	require_if_theme_supports( 'foundation-walker', trailingslashit( HYBRID_ADDONS ) . 'functions/menu.php' );
 
 	require_if_theme_supports( 'cleaner-head', trailingslashit( HYBRID_ADDONS ) . 'functions/clean.php' );
 
 	require_if_theme_supports( 'header-elements', trailingslashit( HYBRID_ADDONS ) . 'admin/admin.php' );
-    
+
+	require_if_theme_supports( 'google-fonts', trailingslashit( HYBRID_ADDONS ) . 'extensions/google-fonts.php' );
+
 }
 
 /**
@@ -74,37 +68,6 @@ function hybrid_addons_register_widgets() {
 		register_widget( 'Hybrid_Addons_Widget_Blog' );
 		register_widget( 'Hybrid_Addons_Widget_Flickr' );
 	endif;
-}
-
-/**
- * Loads the theme options once and allows the input of the specific field the user would 
- * like to show. Theme settings are added with 'autoload' set to 'yes', so the settings are 
- * only loaded once on each page load. USE ONLY WITH THE HYBRID ADDON THEME OPTIONS.
- *
- * @since 0.1.0
- * @uses get_option() Gets an option from the database.
- * @uses hybrid_get_prefix() Gets the prefix of the theme.
- * @global object $hybrid The global Hybrid object.
- * @global array $hybrid_settings Deprecated. Developers should use hybrid_get_setting().
- * @param string $option The specific theme setting the user wants.
- * @return string|int|array $settings[$option] Specific setting asked for.
- */
-function hybrid_get_option( $option = '' ) {
-	global $hybrid, $hybrid_settings;
-
-	if ( !$option )
-		return false;
-
-	if ( !isset( $hybrid->settings ) )
-		$hybrid->settings = $hybrid_settings = get_option( hybrid_get_prefix() . '_theme_options' );
-
-	if ( !is_array( $hybrid->settings ) || empty( $hybrid->settings[$option] ) )
-		return false;
-
-	if ( is_array( $hybrid->settings[$option] ) )
-		return $hybrid->settings[$option];
-	else
-		return wp_kses_stripslashes( $hybrid->settings[$option] );
 }
 
 ?>
