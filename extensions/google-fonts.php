@@ -15,8 +15,18 @@ function hybrid_addons_google_fonts() {
 
 	$font_link = array();
 
-	foreach( $requested_fonts[0] as $font ) {
-		$font_link[] = preg_replace( '/\s+/', '+', $font );
+	foreach( $requested_fonts[0] as $key => $font ) {
+		if ( is_array( $font ) ) {
+			$str = $key . ':';
+			$arr = array();
+			foreach ($font as $variant) {
+				$arr[] = $variant;
+			}
+			$str .= implode(',', $arr);
+			$font_link[] = $str;
+		} else {
+			$font_link[] = preg_replace( '/\s+/', '+', $font );
+		}
 	}
 
 	$google_fonts = implode('|', $font_link);
