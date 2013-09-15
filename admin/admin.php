@@ -111,9 +111,9 @@ function hybrid_addons_display_custom_element_meta_box( $post ) {
 		<label for="hybrid-addons-custom-element"><strong><?php _e( 'Custom Header HTML', 'hybrid-addons' ); ?></strong></label>
 	</p>
 	<p>
-		<textarea class="textarea" rows="8" cols="40" name="hybrid-addons-custom-element" id="hybrid-addons-custom-element"><?php echo esc_attr( get_post_meta( $post->ID, 'hybrid_addons_custom_element', true ) ); ?></textarea>
+		<textarea class="textarea" rows="8" cols="40" name="hybrid-addons-custom-element" id="hybrid-addons-custom-element" style="width:98%;"><?php echo esc_attr( get_post_meta( $post->ID, 'hybrid_addons_custom_element', true ) ); ?></textarea>
 	</p>
-	<p>Description</p>
+	<p>Add your own HTML custom header. Only valid when "Custom Element" is selected for Header Element Options</p>
 <?php
 }
 
