@@ -76,11 +76,17 @@ class Hybrid_Addons_Widget_Blog extends WP_Widget {
 			if ($r->have_posts()) :
 				while ($r->have_posts()) : $r->the_post(); ?>
 					<li>
-						<h5 class="entry-title"><a href="<?php the_permalink() ?>" title="<?php echo esc_attr(get_the_title() ? get_the_title() : get_the_ID()); ?>"><?php if ( get_the_title() ) the_title(); else the_ID(); ?></a></h5>
 
-						<?php if ( $instance['show_date'] == true ) {
-							echo '<p class="entry-date">' . get_the_date( 'M, j, Y' ) . '</p>';
-						} ?>
+						<?php if ( $instance['show_date'] == true ) : ?>
+
+							<h5 class="entry-title has-subtitle"><a href="<?php the_permalink() ?>" title="<?php echo esc_attr(get_the_title() ? get_the_title() : get_the_ID()); ?>"><?php if ( get_the_title() ) the_title(); else the_ID(); ?></a></h5>
+							<p class="entry-date"><?php echo get_the_date( 'M, j, Y' ); ?></p>
+						
+						<?php else : ?>
+
+							<h5 class="entry-title"><a href="<?php the_permalink() ?>" title="<?php echo esc_attr(get_the_title() ? get_the_title() : get_the_ID()); ?>"><?php if ( get_the_title() ) the_title(); else the_ID(); ?></a></h5>
+
+						<?php endif; ?>
 
 						<?php if ( $instance['show_content'] == 'excerpt' ) {
 							the_excerpt();
