@@ -103,6 +103,14 @@ class Hybrid_Addons_Widget_Blog extends WP_Widget {
 
 		</ul>
 
+		<?php $post_obj = get_post_type_object($instance['post_type']); ?>
+
+		<?php if ( !empty( $post_obj->rewrite ) ) : ?>
+
+		<p class="widget-blog-link"><a href="<?php echo get_bloginfo('url') . $post_obj->rewrite['slug']; ?>/">View All <?php echo $post_obj->labels->all_items; ?></a></p>
+
+		<?php endif; ?>
+
 		<?php echo $after_widget;
 	}
 
