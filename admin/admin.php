@@ -3,12 +3,12 @@
 add_action( 'add_meta_boxes', 'hybrid_addons_add_meta_box', 10, 2 );
 
 add_action( 'save_post', 'hybrid_addons_save_header_element_meta_box', 10, 2 );
-add_action( 'add_attachment', 'hybrid_addons_save_header_element_meta_box' );
-add_action( 'edit_attachment', 'hybrid_addons_save_header_element_meta_box' );
+add_action( 'add_attachment', 'hybrid_addons_save_header_element_meta_box', 10, 2 );
+add_action( 'edit_attachment', 'hybrid_addons_save_header_element_meta_box', 10, 2 );
 
 add_action( 'save_post', 'hybrid_addons_save_custom_element_meta_box', 10, 2 );
-add_action( 'add_attachment', 'hybrid_addons_save_custom_element_meta_box' );
-add_action( 'edit_attachment', 'hybrid_addons_save_custom_element_meta_box' );
+add_action( 'add_attachment', 'hybrid_addons_save_custom_element_meta_box', 10, 2 );
+add_action( 'edit_attachment', 'hybrid_addons_save_custom_element_meta_box', 10, 2 );
 
 /**
  * Returns the type of custom header element. Returns false if it is not defined.
