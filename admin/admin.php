@@ -3,12 +3,12 @@
 add_action( 'add_meta_boxes', 'hybrid_addons_add_meta_box', 10, 2 );
 
 add_action( 'save_post', 'hybrid_addons_save_header_element_meta_box', 10, 2 );
-add_action( 'add_attachment', 'hybrid_addons_save_header_element_meta_box', 10, 2 );
-add_action( 'edit_attachment', 'hybrid_addons_save_header_element_meta_box', 10, 2 );
+add_action( 'add_attachment', 'hybrid_addons_save_header_element_meta_box' );
+add_action( 'edit_attachment', 'hybrid_addons_save_header_element_meta_box' );
 
 add_action( 'save_post', 'hybrid_addons_save_custom_element_meta_box', 10, 2 );
-add_action( 'add_attachment', 'hybrid_addons_save_custom_element_meta_box', 10, 2 );
-add_action( 'edit_attachment', 'hybrid_addons_save_custom_element_meta_box', 10, 2 );
+add_action( 'add_attachment', 'hybrid_addons_save_custom_element_meta_box' );
+add_action( 'edit_attachment', 'hybrid_addons_save_custom_element_meta_box' );
 
 /**
  * Returns the type of custom header element. Returns false if it is not defined.
@@ -131,7 +131,7 @@ function hybrid_addons_display_custom_element_meta_box( $post ) {
  * @access public
  * @return void
  */
-function hybrid_addons_save_header_element_meta_box( $post_id, $post ) {
+function hybrid_addons_save_header_element_meta_box( $post_id, $post = '' ) {
 
 	/* Verify the nonce before proceeding. */
 	if ( !isset( $_POST['hybrid-addons-header-element'] ) || !wp_verify_nonce( $_POST['hybrid-addons-header-element-nonce'], basename( __FILE__ ) ) )
@@ -174,7 +174,7 @@ function hybrid_addons_save_header_element_meta_box( $post_id, $post ) {
  * @access public
  * @return void
  */
-function hybrid_addons_save_custom_element_meta_box( $post_id, $post ) {
+function hybrid_addons_save_custom_element_meta_box( $post_id, $post = '' ) {
 
 	/* Verify the nonce before proceeding. */
 	if ( !wp_verify_nonce( $_POST['hybrid-addons-custom-element-nonce'], basename( __FILE__ ) ) )
