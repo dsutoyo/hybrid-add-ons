@@ -81,7 +81,8 @@ function hybrid_addons_display_header_element_meta_box( $post ) {
 	$select_options = array(
 		'None' => 'none',
 		'Title' => 'title',
-		'Custom Element' => 'custom_element'
+		'Custom Element' => 'custom_element',
+		'Hide All Titles' => 'hide'
 	);
 
 	wp_nonce_field( basename( __FILE__ ), 'hybrid-addons-header-element-nonce' );
