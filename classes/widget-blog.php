@@ -40,7 +40,7 @@ class Hybrid_Addons_Widget_Blog extends WP_Widget {
 		);
 
 		/* Create the widget. */
-		$this->WP_Widget( "{$this->prefix}-blog", esc_attr__( 'Blog', 'hybrid-addons' ), $widget_options, $control_options );
+		$this->WP_Widget( "{$this->prefix}-blog", esc_attr__( 'Custom Post Archives', 'hybrid-addons' ), $widget_options, $control_options );
 	}
 
 	/**
@@ -139,8 +139,8 @@ class Hybrid_Addons_Widget_Blog extends WP_Widget {
 
 		/* Set up some default widget settings. */
 		$defaults = array( 
-			'title' => __('Recent Posts', 'hybrid-addons'),
-			'posts' => __('5', 'hybrid-addons'),
+			'title' => __( 'Recent Posts', 'hybrid-addons' ),
+			'posts' => __( '5', 'hybrid-addons' ),
 			'post_type' => 'post',
 			'show_content' => 'excerpt',
 			'show_date' => false
@@ -148,11 +148,37 @@ class Hybrid_Addons_Widget_Blog extends WP_Widget {
 		$instance = wp_parse_args( (array) $instance, $defaults );
 
 		$post_types = get_post_types( array( 'public' => true ), 'objects' );
+
+		$post_type_categories = array();
+
+		foreach ( $post_types as $type ) {
+			$post_type_categories[$type->name] = array();
+
+			// Get all taxonomies of each post type
+			$taxonomies = get_object_taxonomies( $type->name, 'objects' );
+
+			// Get only the hierarchical (like categories) taxonomies
+			foreach ( $taxonomies as $taxonomy ) {
+				if ( is_taxonomy_hierarchical( $taxonomy->name ) ) {
+					// Get the terms associated with each taxonomy
+					$args = array(
+						'order' => 'ASC',
+					);
+					$terms = get_terms( $taxonomy->name, $args );
+
+					foreach ( $terms as $term ) {
+						$post_type_categories[$type->name][$term->term_id] = $term->name;
+					}
+				}
+			}
+
+		}
+		
 		$content_types = array( 'none' => esc_attr__( 'Title only', 'hybrid-addons' ), 'excerpt' => esc_attr__( 'Excerpt only', 'hybrid-addons' ), 'content' => esc_attr__( 'Full content', 'hybrid-addons' ) );
 		?>
 
 		<p>
-			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e('Title:', 'hybrid-addons'); ?></label>
+			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:', 'hybrid-addons' ); ?></label>
 			<input id="<?php echo $this->get_field_id( 'title' ); ?>" type="text" class="widefat" name="<?php echo $this->get_field_name( 'title' ); ?>" value="<?php echo $instance['title']; ?>" />
 		</p>
 		
@@ -165,6 +191,17 @@ class Hybrid_Addons_Widget_Blog extends WP_Widget {
 				<?php } ?>
 			</select>
 		</p>
+
+		<!--p>
+			<label for="<?php echo $this->get_field_id( 'category' ); ?>">Categories:</label>
+			<select class="widefat" id="<?php echo $this->get_field_id( 'category' ); ?>" name="<?php echo $this->get_field_name( 'category' ); ?>">
+				<?php foreach ( $post_type_categories as $post_type_category => $value ) {
+					foreach ( $value as $option ) { ?>
+					<option class="<?php echo $post_type_category; ?>" value="<?php echo esc_attr( $type->name ); ?>"<?php selected( $instance['post_type'], $type->name ); ?>><?php echo esc_html( $type->labels->name ); ?></option>
+				<?php }
+				} ?>
+			</select>
+		</p-->
 
 		<p>
 			<label for="<?php echo $this->get_field_id( 'posts' ); ?>"><?php _e('Number of Posts:', 'hybrid-addons'); ?></label>
