@@ -56,7 +56,8 @@ class Hybrid_Addons_Widget_Blog extends WP_Widget {
 			'nopaging' => 0,
 			'post_status' => 'publish',
 			'post_type' => $instance['post_type'],
-			'ignore_sticky_posts' => true
+			'ignore_sticky_posts' => true,
+			'cat' => $instance['category']
 		);
 
  		/* Before widget (defined by themes). */
@@ -72,9 +73,9 @@ class Hybrid_Addons_Widget_Blog extends WP_Widget {
 		<ul class="xoxo articles">
 		<?php } ?>
 		
-		<?php $r = new WP_Query($args);
-			if ($r->have_posts()) :
-				while ($r->have_posts()) : $r->the_post(); ?>
+		<?php $r = new WP_Query( $args );
+			if ( $r->have_posts() ) :
+				while ( $r->have_posts() ) : $r->the_post(); ?>
 					<li>
 
 						<?php if ( $instance['show_date'] == true ) : ?>
@@ -125,6 +126,7 @@ class Hybrid_Addons_Widget_Blog extends WP_Widget {
 		$instance['title'] = strip_tags( $new_instance['title'] );
 		$instance['posts'] = strip_tags( $new_instance['posts'] );
 		$instance['post_type'] = strip_tags( $new_instance['post_type'] );
+		$instance['category'] = strip_tags( $new_instance['category'] );
 		$instance['show_content'] = $new_instance['show_content'];
 		$instance['show_date'] = ( isset( $new_instance['show_date'] ) ? 1 : 0 );
 
@@ -142,6 +144,7 @@ class Hybrid_Addons_Widget_Blog extends WP_Widget {
 			'title' => __( 'Recent Posts', 'hybrid-addons' ),
 			'posts' => __( '5', 'hybrid-addons' ),
 			'post_type' => 'post',
+			'category' => '',
 			'show_content' => 'excerpt',
 			'show_date' => false
 		);
@@ -192,16 +195,15 @@ class Hybrid_Addons_Widget_Blog extends WP_Widget {
 			</select>
 		</p>
 
-		<!--p>
-			<label for="<?php echo $this->get_field_id( 'category' ); ?>">Categories:</label>
+		<p>
+			<label for="<?php echo $this->get_field_id( 'category' ); ?>">Categories: (beta, post categories only)</label>
 			<select class="widefat" id="<?php echo $this->get_field_id( 'category' ); ?>" name="<?php echo $this->get_field_name( 'category' ); ?>">
-				<?php foreach ( $post_type_categories as $post_type_category => $value ) {
-					foreach ( $value as $option ) { ?>
-					<option class="<?php echo $post_type_category; ?>" value="<?php echo esc_attr( $type->name ); ?>"<?php selected( $instance['post_type'], $type->name ); ?>><?php echo esc_html( $type->labels->name ); ?></option>
-				<?php }
-				} ?>
+				<option value="" <?php selected( $instance['category'], '' ); ?>>---</option>
+				<?php foreach ( $post_type_categories['post'] as $cat_id => $cat_name ) { ?>
+					<option class="hybrid-addons-blog-widget_<?php echo $post_type_category; ?>" value="<?php echo esc_attr( $cat_id ); ?>"<?php selected( $instance['category'], $cat_id ); ?>><?php echo esc_html( $cat_name ); ?></option>
+				<?php } ?>
 			</select>
-		</p-->
+		</p>
 
 		<p>
 			<label for="<?php echo $this->get_field_id( 'posts' ); ?>"><?php _e('Number of Posts:', 'hybrid-addons'); ?></label>
