@@ -108,7 +108,7 @@ class Hybrid_Addons_Widget_Blog extends WP_Widget {
 
 		<?php if ( !empty( $post_obj->rewrite ) ) : ?>
 
-		<p class="widget-blog-link"><a href="<?php echo get_bloginfo('url') . $post_obj->rewrite['slug']; ?>/">View All <?php echo $post_obj->labels->all_items; ?></a></p>
+		<p class="widget-blog-link"><a href="<?php echo get_bloginfo('url') . '/' . $post_obj->rewrite['slug']; ?>/">View All <?php echo $post_obj->labels->all_items; ?></a></p>
 
 		<?php endif; ?>
 
