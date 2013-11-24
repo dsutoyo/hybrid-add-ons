@@ -19,10 +19,11 @@ function hybrid_addons_menu_fallback() {
 }
 
 /**
- * class required_walker
- * Custom output to enable the the ZURB Navigation style.
+ * Custom Walker Class
+ * Custom output to enable the the ZURB Navigation style, now supports Foundation 5
  * Courtesy of Kriesi.at. http://www.kriesi.at/archives/improve-your-wordpress-navigation-menu-output
- * From required+ Foundation http://themes.required.ch and Reverie http://themefortress.com
+ * 
+ * since 0.1.0
  */
 class Hybrid_Addons_Walker extends Walker_Nav_Menu {
 
@@ -38,19 +39,20 @@ class Hybrid_Addons_Walker extends Walker_Nav_Menu {
 			'item_type' => 'li',
 			'in_top_bar' => false,
 			'divider' => false,
-			'divider_content' => ''
+			'divider_content' => '',
+			'offcanvas' => false
 		);
 		$this->nav_bar = apply_filters( 'req_nav_args', wp_parse_args( $nav_args, $defaults ) );
 	}
 
 	function display_element( $element, &$children_elements, $max_depth, $depth=0, $args, &$output ) {
 
-        $id_field = $this->db_fields['id'];
-        if ( is_object( $args[0] ) ) {
-            $args[0]->has_children = ! empty( $children_elements[$element->$id_field] );
-        }
-        return parent::display_element( $element, $children_elements, $max_depth, $depth, $args, $output );
-    }
+		$id_field = $this->db_fields['id'];
+		if ( is_object( $args[0] ) ) {
+			$args[0]->has_children = ! empty( $children_elements[$element->$id_field] );
+		}
+		return parent::display_element( $element, $children_elements, $max_depth, $depth, $args, $output );
+	}
 
 	function start_el( &$output, $item, $depth = 0, $args = array(), $id = 0 ) {
 
@@ -59,7 +61,11 @@ class Hybrid_Addons_Walker extends Walker_Nav_Menu {
 
 		$class_names = $value = '';
 
-		$classes = empty( $item->classes ) ? array() : (array) $item->classes;
+		if ( $this->nav_bar['offcanvas'] == true ) {
+			$classes[] = array();
+		} else {
+			$classes = empty( $item->classes ) ? array() : (array) $item->classes;
+		}
 		$classes[] = 'menu-item-' . $item->ID;
 
 		// Check for flyout
@@ -68,8 +74,13 @@ class Hybrid_Addons_Walker extends Walker_Nav_Menu {
 
 			if ( $depth == 0 && $this->nav_bar['in_top_bar'] == false ) {
 
-				$classes[] = 'has-flyout';
-				$flyout_toggle = '<a href="#" class="flyout-toggle"><span></span></a>';
+				if ( $this->nav_bar['offcanvas'] == true ) {
+					$classes[] = 'has-submenu';
+					$flyout_toggle = '<span>This</span>';
+				} else {	
+					$classes[] = 'has-flyout';
+					$flyout_toggle = '<a href="#" class="flyout-toggle"><span></span></a>';
+				}
 
 			} else if ( $this->nav_bar['in_top_bar'] == true ) {
 
@@ -120,12 +131,16 @@ class Hybrid_Addons_Walker extends Walker_Nav_Menu {
 
 		if ( $depth == 0 && $this->nav_bar['item_type'] == 'li' ) {
 			$indent = str_repeat("\t", 1);
-    		$output .= $this->nav_bar['in_top_bar'] == true ? "\n$indent<ul class=\"dropdown\">\n" : "\n$indent<ul class=\"flyout\">\n";
-    	} else {
+			if ( $this->nav_bar['offcanvas'] == true ) {
+				$output .= "\n$indent<ul class=\"submenu\">\n";
+			} else {
+				$output .= $this->nav_bar['in_top_bar'] == true ? "\n$indent<ul class=\"dropdown\">\n" : "\n$indent<ul class=\"flyout\">\n";
+			}
+	 	} else {
 			$indent = str_repeat("\t", $depth);
-    		$output .= $this->nav_bar['in_top_bar'] == true ? "\n$indent<ul class=\"dropdown\">\n" : "\n$indent<ul class=\"level-$depth\">\n";
+			$output .= $this->nav_bar['in_top_bar'] == true ? "\n$indent<ul class=\"dropdown\">\n" : "\n$indent<ul class=\"level-$depth\">\n";
 		}
-  	}
+	}
 }
 
 ?>
