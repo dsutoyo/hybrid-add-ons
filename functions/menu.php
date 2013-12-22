@@ -76,7 +76,7 @@ class Hybrid_Addons_Walker extends Walker_Nav_Menu {
 
 				if ( $this->nav_bar['offcanvas'] == true ) {
 					$classes[] = 'has-submenu';
-					$flyout_toggle = '<span>This</span>';
+					$flyout_toggle = '<span>Test<i></i></span>';
 				} else {	
 					$classes[] = 'has-flyout';
 					$flyout_toggle = '<a href="#" class="flyout-toggle"><span></span></a>';
@@ -94,12 +94,17 @@ class Hybrid_Addons_Walker extends Walker_Nav_Menu {
 		$class_names = $class_names ? ' class="' . esc_attr( $class_names ) . '"' : '';
 
 		if ( $depth > 0 ) {
-			$output .= $indent . '<li id="menu-item-'. $item->ID . '"' . $value . $class_names .'>';
-		} else {
-			if ( $this->nav_bar['divider'] == true ) {
-				$output .= $indent . ( $this->nav_bar['in_top_bar'] == true ? '<li class="divider">' . $this->nav_bar['divider_content'] . '</li>' : '' ) . '<' . $this->nav_bar['item_type'] . ' id="menu-item-'. $item->ID . '"' . $value . $class_names .'>';
+			if ( $this->nav_bar['offcanvas'] == true ) {
+				$output .= $indent . '<li id="offcanvas-menu-item-'. $item->ID . '"' . $value . $class_names .'>';
 			} else {
-				$output .= $indent . '<' . $this->nav_bar['item_type'] . ' id="menu-item-'. $item->ID . '"' . $value . $class_names .'>';
+				$output .= $indent . '<li id="menu-item-'. $item->ID . '"' . $value . $class_names .'>';
+			}
+		} else {
+			$menu_item_id = $this->nav_bar['offcanvas'] == true ? 'offcanvas-menu-item-' . $item->ID : 'menu-item-' . $item->ID; 
+			if ( $this->nav_bar['divider'] == true ) {
+				$output .= $indent . ( $this->nav_bar['in_top_bar'] == true ? '<li class="divider">' . $this->nav_bar['divider_content'] . '</li>' : '' ) . '<' . $this->nav_bar['item_type'] . ' id="' . $menu_item_id . '"' . $value . $class_names .'>';
+			} else {
+				$output .= $indent . '<' . $this->nav_bar['item_type'] . ' id="' . $menu_item_id . '"' . $value . $class_names .'>';
 			}
 		}
 
