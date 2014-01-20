@@ -80,7 +80,7 @@ function hybrid_addons_display_header_element_meta_box( $post ) {
 
 	$select_options = array(
 		'None' => 'none',
-		'Title' => 'title',
+		'Title in Header' => 'title',
 		'Custom Element' => 'custom_element',
 		'Hide All Titles' => 'hide'
 	);
