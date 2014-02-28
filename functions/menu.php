@@ -76,7 +76,7 @@ class Hybrid_Addons_Walker extends Walker_Nav_Menu {
 
 				if ( $this->nav_bar['offcanvas'] == true ) {
 					$classes[] = 'has-submenu';
-					$flyout_toggle = '<span>Test<i></i></span>';
+					$flyout_toggle = '<span><i></i></span>';
 				} else {	
 					$classes[] = 'has-flyout';
 					$flyout_toggle = '<a href="#" class="flyout-toggle"><span></span></a>';
