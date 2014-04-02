@@ -2,8 +2,11 @@
 /**
  * Flickr Widget
  *
- * @package Hybrid Addons
- * @since 0.1.0
+ * @package    Hybrid Addons
+ * @subpackage Classes
+ * @author     David Sutoyo <david@smallharbor.com>
+ * @copyright  Copyright (c) 2012 - 2014, David Sutoyo
+ * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 class Hybrid_Addons_Widget_Flickr extends WP_Widget {
 	

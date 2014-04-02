@@ -2,8 +2,11 @@
 /**
  * The Blog widget allows you to output the content of different post types
  *
- * @package Hybrid Addons
+ * @package    Hybrid Addons
  * @subpackage Classes
+ * @author     David Sutoyo <david@smallharbor.com>
+ * @copyright  Copyright (c) 2012 - 2014, David Sutoyo
+ * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
 /**

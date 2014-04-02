@@ -1,4 +1,14 @@
 <?php
+/**
+ * Theme administration functions used with other components of the framework admin.  This file is for 
+ * setting up any basic features and holding additional admin helper functions.
+ *
+ * @package    Hybrid Add-ons
+ * @subpackage Admin
+ * @author     David Sutoyo <david@smallharbor.com>
+ * @copyright  Copyright (c) 2012 - 2014, David Sutoyo
+ * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+ */
 
 add_action( 'add_meta_boxes', 'hybrid_addons_add_meta_box', 10, 2 );
 

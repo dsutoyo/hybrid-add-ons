@@ -1,12 +1,13 @@
 <?php
-
 /**
- * A fallback when no navigation is selected by default, otherwise it throws some nasty errors in your face.
- * From required+ Foundation http://themes.required.ch and Reverie http://themefortress.com
+ * A fallback when no navigation is selected by default.
+ *
+ * @since 0.1.0
+ * @access public
  */
 function hybrid_addons_menu_fallback() {
 	echo '<div class="alert-box secondary">';
-	// Translators 1: Link to Menus, 2: Link to Customize
+	
 	printf( __( 'Please assign a menu to the primary menu location under %1$s or %2$s the design.', 'hybrid-addons' ),
 		sprintf(  __( '<a href="%s">Menus</a>', 'hybrid-addons' ),
 			get_admin_url( get_current_blog_id(), 'nav-menus.php' )
@@ -19,11 +20,11 @@ function hybrid_addons_menu_fallback() {
 }
 
 /**
- * Custom Walker Class
- * Custom output to enable the the ZURB Navigation style, now supports Foundation 5
+ * Custom Walker Class -- custom output to enable the the ZURB Navigation style, now supports Foundation 5
  * Courtesy of Kriesi.at. http://www.kriesi.at/archives/improve-your-wordpress-navigation-menu-output
  * 
- * since 0.1.0
+ * @since 0.1.0
+ * @access public
  */
 class Hybrid_Addons_Walker extends Walker_Nav_Menu {
 
