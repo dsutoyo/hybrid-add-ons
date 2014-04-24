@@ -41,7 +41,8 @@ class Hybrid_Addons_Walker extends Walker_Nav_Menu {
 			'in_top_bar' => false,
 			'divider' => false,
 			'divider_content' => '',
-			'offcanvas' => false
+			'offcanvas' => false,
+			'has_dropdown_marker' => true
 		);
 		$this->nav_bar = apply_filters( 'req_nav_args', wp_parse_args( $nav_args, $defaults ) );
 	}
@@ -87,6 +88,11 @@ class Hybrid_Addons_Walker extends Walker_Nav_Menu {
 
 				$classes[] = 'has-dropdown';
 				$flyout_toggle = '';
+
+				if ( $this->nav_bar['has_dropdown_marker'] == false ) {
+					$classes[] = 'no-dropdown-marker';
+				}
+
 			}
 
 		}
